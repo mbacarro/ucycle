@@ -8,6 +8,10 @@ module.exports = {
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
       },
+      backgroundImage: {
+        'dorm': "url('../src/Images/Dorm.png')",
+        'apartment': "url('../src/Images/Apartment.png')",
+      },
     },
   },
   plugins: [],
