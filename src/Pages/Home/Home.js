@@ -1,6 +1,7 @@
 import React from 'react';
 
 import NavBar from '../../Components/Navbar/Navbar';
+import ItemCard from '../../Components/ItemCard/ItemCard';
 
 export default  function Home(props) {
     return (
@@ -67,13 +68,7 @@ export default  function Home(props) {
                     <h1 className='text-2xl font-bold text-black'>Popular Items</h1>
                     <div className='grid grid-cols-4 gap-10'>
                         {[...Array(10).keys()].map((i) => (
-                            <div key={`Item${i + 1}`} id={`Item${i + 1}`} className='flex flex-col w-full aspect-square'>
-                                <div id={`Item${i + 1}Img`} className='flex w-full border border-red aspect-square'>
-                                    {/* Placeholder for item image */}
-                                </div>
-                                <h2 className='mt-3 text-lg font-medium text-black'>Item {i + 1}</h2>
-                                <h3 className='mt-3 font-normal text-black text-mg'>$ Price</h3>
-                            </div>
+                            <ItemCard key={i + 1} id={i + 1} />
                         ))}
                     </div>
                 </div>

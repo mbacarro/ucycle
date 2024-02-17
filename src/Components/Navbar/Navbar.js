@@ -1,6 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import Dropdown from '../Dropdown/Dropdown';
+
+import BagIcon from '../../Images/BagIcon.svg'
+import InboxIcon from '../../Images/InboxIcon.svg'
+import NotificationsIcon from '../../Images/NotificationsIcon.svg'
+import ProfileIcon from '../../Images/ProfileIcon.svg'
 
 export default function NavBar(props) {
 
@@ -19,10 +24,19 @@ export default function NavBar(props) {
                             Sell
                         </button>
                         <div className='flex gap-4 ml-8'>
-                            <div className='w-6 h-6 border border-black border-solid'></div>
-                            <div className='w-6 h-6 border border-black border-solid'></div>
-                            <div className='w-6 h-6 border border-black border-solid'></div>
-                            <div className='w-6 h-6 border border-black border-solid'></div>
+                            <Link to='/Profile' className='w-6 h-6'>
+                                <img src={ProfileIcon} alt='Icon 1' className='w-full h-full' />
+                            </Link>
+                            <img
+                                src={NotificationsIcon}
+                                className='w-6 h-6'
+                            />
+                            <Link to='/Inbox' className='w-6 h-6'>
+                                <img src={InboxIcon} alt='Icon 3' className='w-full h-full' />
+                            </Link>
+                            <Link to='/Bag' className='w-6 h-6'>
+                                <img src={BagIcon} alt='Icon 4' className='w-full h-full' />
+                            </Link>
                         </div>
                     </div>
                 </div>
