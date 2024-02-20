@@ -7,6 +7,7 @@ import Bag from '../Pages/Bag/Bag.js';
 import Inbox from '../Pages/Inbox/Inbox.js';
 import Profile from '../Pages/Profile/Profile.js';
 import Report from '../Pages/Report/Report.js';
+import CreateListing from '../Pages/CreateListing/CreateListing.js';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/Inbox" element={<Inbox />} />
       <Route path="/Profile" element={<Profile />} />
       <Route path="/Report" element={<Report />} />
+      <Route path="/Sell" element={<CreateListing />} />
       <Route path="*" element={<Home />} />
     </Routes>
   );

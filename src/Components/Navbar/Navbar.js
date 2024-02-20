@@ -20,8 +20,8 @@ export default function NavBar(props) {
                         <p>temp search bar</p>
                     </div>
                     <div id="actions" className='flex items-center justify-center my-auto ml-auto'>
-                        <button class="h-10 w-32 text-white text-center text-xl bg-violet-700 rounded-full hover:bg-violet-800 focus:ring-4 focus:ring-violet-300 dark:bg-violet-600 dark:hover:bg-violet-700 focus:outline-none dark:focus:ring-violet-800">
-                            Sell
+                        <button className="w-32 h-10 text-xl text-center text-white rounded-full bg-violet-700 hover:bg-violet-800 focus:ring-4 focus:ring-violet-300 dark:bg-violet-600 dark:hover:bg-violet-700 focus:outline-none dark:focus:ring-violet-800">
+                            <Link to='/Sell'>Sell</Link>
                         </button>
                         <div className='flex gap-4 ml-8'>
                             <Link to='/Profile' className='w-6 h-6'>
