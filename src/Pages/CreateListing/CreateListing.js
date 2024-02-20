@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import NavBar from '../../Components/Navbar/Navbar';
 
-const CreateListing = () => {
+export default function CreateListing(props){
     const [name, setName] = useState('');
     const [condition, setCondition] = useState('');
     const [category, setCategory] = useState('');
@@ -219,4 +219,4 @@ const CreateListing = () => {
     );
 };
 
-export default CreateListing;
+

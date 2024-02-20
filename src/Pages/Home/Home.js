@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import NavBar from '../../Components/Navbar/Navbar';
 import ItemCard from '../../Components/ItemCard/ItemCard';
@@ -11,6 +12,20 @@ import accessoriesImg from '../../Images/Accessories.png'
 import miscImg from '../../Images/Misc.png'
 
 export default  function Home(props) {
+    const sampleItems = [
+        { id: 1, name: 'Sample Item 1', price: 50 },
+        { id: 2, name: 'Sample Item 2', price: 30 },
+        { id: 3, name: 'Sample Item 3', price: 40 },
+        { id: 4, name: 'Sample Item 4', price: 35 },
+        { id: 5, name: 'Sample Item 5', price: 45 },
+        { id: 6, name: 'Sample Item 6', price: 60 },
+        { id: 7, name: 'Sample Item 7', price: 100 },
+        { id: 8, name: 'Sample Item 8', price: 150 },
+        { id: 9, name: 'Sample Item 9', price: 50 },
+        { id: 10, name: 'Sample Item 10', price: 80 },
+    ];
+
+
     return (
         <>
             <NavBar />
@@ -31,30 +46,30 @@ export default  function Home(props) {
                 <div id='Categories' className='flex flex-col justify-center gap-6'>
                     <h1 className='text-2xl font-bold text-black'>Shop by Category</h1>
                     <div className='grid grid-cols-6 gap-4'>
-                        <div id='Womenswear' className='flex flex-col w-full aspect-square'>
-                            <img src={womenswearImg} alt="Womenswear" className='object-cover w-full aspect-square'/>
+                        <Link to="/category/womenswear" className='flex flex-col w-full aspect-square'>
+                            <img src={womenswearImg} alt="Womenswear" className='object-cover w-full aspect-square' />
                             <h2 className='mt-3 text-lg font-medium text-black'>Womenswear</h2>
-                        </div>
-                        <div id='Menswear' className='flex flex-col w-full aspect-square'>
+                        </Link>
+                        <Link to="/category/menswear" className='flex flex-col w-full aspect-square'>
                             <img src={menswearImg} alt="Menswear" className='object-cover w-full aspect-square' />
                             <h2 className='mt-3 text-lg font-medium text-black'>Menswear</h2>
-                        </div>
-                        <div id='Home Goods' className='flex flex-col w-full aspect-square'>
+                        </Link>
+                        <Link to="/category/homegoods" className='flex flex-col w-full aspect-square'>
                             <img src={homegoodsImg} alt="Home Goods" className='object-cover w-full aspect-square' />
                             <h2 className='mt-3 text-lg font-medium text-black'>Home Goods</h2>
-                        </div>
-                        <div id='Electronics' className='flex flex-col w-full aspect-square'>
+                        </Link>
+                        <Link to="/category/electronics" className='flex flex-col w-full aspect-square'>
                             <img src={electronicsImg} alt="Electronics" className='object-cover w-full aspect-square' />
                             <h2 className='mt-3 text-lg font-medium text-black'>Electronics</h2>
-                        </div>
-                        <div id='Accessories' className='flex flex-col w-full aspect-square '>
+                        </Link>
+                        <Link to="/category/accessories" className='flex flex-col w-full aspect-square '>
                             <img src={accessoriesImg} alt="Accessories" className='object-cover w-full aspect-square' />
                             <h2 className='mt-3 text-lg font-medium text-black'>Accessories</h2>
-                        </div>
-                        <div id='Misc' className='flex flex-col w-full aspect-square'>
+                        </Link>
+                        <Link to="/category/misc" className='flex flex-col w-full aspect-square'>
                             <img src={miscImg} alt="Misc" className='object-cover w-full aspect-square' />
                             <h2 className='mt-3 text-lg font-medium text-black'>Misc</h2>
-                        </div>
+                        </Link>
                     </div>
                 </div>
 
@@ -62,8 +77,8 @@ export default  function Home(props) {
                 <div id='Categories' className='flex flex-col gap-6 justify-evenly'>
                     <h1 className='text-2xl font-bold text-black'>Popular Items</h1>
                     <div className='grid grid-cols-4 gap-20'>
-                        {[...Array(10).keys()].map((i) => (
-                            <ItemCard key={i + 1} id={i + 1} />
+                        {sampleItems.map(item => (
+                            <ItemCard key={item.id} id={item.id} name={item.name} price={item.price} />
                         ))}
                     </div>
                 </div>
