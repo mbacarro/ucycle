@@ -9,6 +9,7 @@ import Profile from '../Pages/Profile/Profile.js';
 import Report from '../Pages/Report/Report.js';
 import CreateListing from '../Pages/CreateListing/CreateListing.js';
 import Category from '../Pages/Category/Category.js';
+import ItemDetails from '../Pages/ItemDetails/ItemDetails.js';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Route path="/Report" element={<Report />} />
       <Route path="/Sell" element={<CreateListing />} />
       <Route path="/category/:category" element={<Category />} />
+      <Route path="/item/:itemId" element={<ItemDetails />} />
       <Route path="*" element={<Home />} />
     </Routes>
   );
