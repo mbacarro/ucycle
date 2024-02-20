@@ -12,6 +12,8 @@ const Category = () => {
     const categoryItems = items[category] || [];
     const categoryFilters = filters[category] || [];
 
+    console.log(categoryItems)
+
     const [sortBy, setSortBy] = useState('default');
 
     // Sort items based on the selected sort option
@@ -54,7 +56,7 @@ const Category = () => {
                 <div>
                     <div className="grid grid-cols-4 gap-4">
                         {categoryItems.map(item => (
-                            <ItemCard key={item.id} id={item.id} name={item.name} price={item.price} />
+                            <ItemCard key={item.id} id={item.itemID} name={item.name} price={item.price} />
                         ))}
                     </div>
                 </div>
