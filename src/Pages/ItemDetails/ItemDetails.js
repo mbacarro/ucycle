@@ -71,7 +71,7 @@ const ItemDetails = () => {
                                 <div className='w-8 h-8 rounded-full'></div>
                             </div>
                             <div className='flex gap-3'>
-                                <button className="px-10 py-2 text-xl font-semibold text-center text-white border rounded h-fit w-fit bg-violet-700 hover:bg-violet-800 focus:ring-4 focus:ring-violet-300 dark:bg-violet-600 dark:hover:bg-violet-700 focus:outline-none dark:focus:ring-violet-800">Add to bag</button>
+                                <button className="px-10 py-2 text-xl font-semibold text-center text-white border rounded h-fit w-fit bg-violet-700 hover:bg-violet-800">Add to bag</button>
                                 <button className="px-10 py-2 text-xl font-semibold text-center text-black border border-black rounded h-fit w-fit">Report Item</button>
                             </div>
                         </div>
