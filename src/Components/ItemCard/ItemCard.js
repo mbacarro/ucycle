@@ -5,7 +5,7 @@ export default function ItemCard(props) {
     return (
         <Link to={`/item/${props.id}`} className='block'>
             <div key={`Item${props.id}`} id={`Item${props.id}`} className='flex flex-col w-full aspect-square'>
-                <div id={`Item${props.id}Img`} className='flex w-full border border-red aspect-square'>
+                <div id={`Item${props.id}Img`} className='flex w-full border border-red aspect-square bg-violet-300'>
                     {/* Placeholder for item image */}
                 </div>
                 <h2 className='mt-3 text-lg font-medium text-black'>{props.name}</h2>

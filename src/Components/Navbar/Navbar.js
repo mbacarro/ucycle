@@ -16,9 +16,9 @@ export default function NavBar(props) {
                 <div className='flex my-2.5 px-10 shadow-lg'>
                     <Link to="/" className="text-[42px] font-bold text-violet-700 mr-8 my-auto">UCycle</Link>
 
-                    <div id="search" className='flex items-center justify-center h-10 my-auto mr-auto border border-black border-solid rounded-full w-52 justify-items-center'>
+                    {/* <div id="search" className='flex items-center justify-center h-10 my-auto mr-auto border border-black border-solid rounded-full w-52 justify-items-center'>
                         <p>temp search bar</p>
-                    </div>
+                    </div> */}
                     <div id="actions" className='flex items-center justify-center my-auto ml-auto'>
                         <button className="w-32 h-10 text-xl text-center text-white rounded-full bg-violet-700 hover:bg-violet-800">
                             <Link to='/Sell'>Sell</Link>
