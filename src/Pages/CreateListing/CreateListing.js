@@ -3,8 +3,10 @@ import NavBar from '../../Components/Navbar/Navbar';
 
 export default function CreateListing(props){
     const [name, setName] = useState('');
+    const [price, setPrice] = useState(null);
     const [condition, setCondition] = useState('');
     const [category, setCategory] = useState('');
+    const [color, setColor] = useState('');
     const [description, setDescription] = useState('');
     const [images, setImages] = useState([]);
 
@@ -13,6 +15,7 @@ export default function CreateListing(props){
         // Handle form submission logic here
     };
 
+    // location logic
     const [locationOptions, setLocationOptions] = useState(['Location 1', 'Location 2', 'Location 3', 'Location 4', 'Location 5'])
     const [selectedLocations, setSelectedLocations] = useState([]);
     const [showOtherLocationNotes, setShowOtherLocationNotes] = useState(false);
@@ -57,7 +60,7 @@ export default function CreateListing(props){
         }
     };
 
-
+    // payment logic
     const paymentOptions = ['Cash', 'Venmo', 'Zelle', 'Cashapp'];
 
     const [selectedOptions, setSelectedOptions] = useState([]);
@@ -92,20 +95,11 @@ export default function CreateListing(props){
                 </label>
                 <input className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" type="text" value={name} onChange={(e) => setName(e.target.value)} />
 
-
                 <label className='block text-lg font-medium text-gray-900 mb-2.5'>
-                    Item Condition:
-
+                    Item Price:
                 </label>
-                <select className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" value={condition} onChange={(e) => setCondition(e.target.value)}>
-                    <option value=""></option>
-                    <option value="New">New</option>
-                    <option value="Like New">Like New</option>
-                    <option value="Good">Good</option>
-                    <option value="Fair">Fair</option>
-                    <option value="Poor">Poor</option>
-                </select>
-                
+                <input className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
+
                 <label className='block text-lg font-medium text-gray-900 mb-2.5'>
                     Item Category:
                 </label>
@@ -117,7 +111,30 @@ export default function CreateListing(props){
                     <option value="Electronics">Electronics</option>
                     <option value="Accessories">Accessories</option>
                     <option value="Misc">Misc</option>
+                </select>
 
+                <label className='block text-lg font-medium text-gray-900 mb-2.5'>
+                    Item Condition:
+                </label>
+                <select className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" value={condition} onChange={(e) => setCondition(e.target.value)}>
+                    <option value=""></option>
+                    <option value="New">New</option>
+                    <option value="Like New">Like New</option>
+                    <option value="Good">Good</option>
+                    <option value="Fair">Fair</option>
+                    <option value="Poor">Poor</option>
+                </select>
+                
+                <label className='block text-lg font-medium text-gray-900 mb-2.5'>
+                    Item Color:
+                </label>
+                <select className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" value={color} onChange={(e) => setColor(e.target.value)}>
+                    <option value=""></option>
+                    <option value="Red">Red</option>
+                    <option value="Blue">Blue</option>
+                    <option value="Green">Green</option>
+                    <option value="Black">Black</option>
+                    <option value="White">White</option>
                 </select>
 
                 <label className='block text-lg font-medium text-gray-900 mb-2.5'>
@@ -210,8 +227,6 @@ export default function CreateListing(props){
                         />
                     )}
                 </fieldset>
-
-
 
                 <button className="w-40 h-10 mt-10 text-xl text-center text-white rounded bg-violet-700 hover:bg-violet-800 focus:ring-4 focus:ring-violet-300 dark:bg-violet-600 dark:hover:bg-violet-700 focus:outline-none dark:focus:ring-violet-800" type="submit">List Item</button>
             </form>

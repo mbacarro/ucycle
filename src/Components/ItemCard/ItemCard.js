@@ -9,7 +9,7 @@ export default function ItemCard(props) {
                     {/* Placeholder for item image */}
                 </div>
                 <h2 className='mt-3 text-lg font-medium text-black'>{props.name}</h2>
-                <h3 className='mt-3 font-normal text-black text-mg'>${props.price}</h3>
+                <h3 className='mt-3 font-normal text-black text-md'>${props.price}</h3>
             </div>
         </Link>
     );

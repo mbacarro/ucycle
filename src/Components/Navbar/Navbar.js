@@ -21,20 +21,20 @@ export default function NavBar(props) {
                     </div> */}
                     <div id="actions" className='flex items-center justify-center my-auto ml-auto'>
                         <button className="w-32 h-10 text-xl text-center text-white rounded-full bg-violet-700 hover:bg-violet-800">
-                            <Link to='/Sell'>Sell</Link>
+                            <Link to='/sell'>Sell</Link>
                         </button>
                         <div className='flex gap-4 ml-8'>
-                            <Link to='/Profile' className='w-6 h-6'>
+                            <Link to='/profile' className='w-6 h-6'>
                                 <img src={ProfileIcon} alt='Icon 1' className='w-full h-full' />
                             </Link>
                             <img
                                 src={NotificationsIcon}
                                 className='w-6 h-6'
                             />
-                            <Link to='/Inbox' className='w-6 h-6'>
+                            <Link to='/inbox' className='w-6 h-6'>
                                 <img src={InboxIcon} alt='Icon 3' className='w-full h-full' />
                             </Link>
-                            <Link to='/Bag' className='w-6 h-6'>
+                            <Link to='/shopping-bag' className='w-6 h-6'>
                                 <img src={BagIcon} alt='Icon 4' className='w-full h-full' />
                             </Link>
                         </div>
