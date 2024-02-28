@@ -3,12 +3,16 @@ import { Link } from 'react-router-dom';
 
 
 import NavBar from '../../Components/Navbar/Navbar';
+import Breadcrumbs from '../../Components/Breadcrumbs/Breadcrumbs';
 
 export default function Profile(props) {
     return (
         <>
             <NavBar />
-            <div className="flex flex-col gap-20 my-20 mx-60">
+            <div className='mx-20'>
+                <Breadcrumbs />
+            </div>
+            <div className="flex flex-col gap-20 mt-3 mx-60">
                 <div className='flex'>
                     <div className='flex flex-col w-1/4'>
                         <h1 className='text-3xl font-bold'>Profile</h1>
