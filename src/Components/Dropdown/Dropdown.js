@@ -19,8 +19,6 @@ const Dropdown = (props) => {
                     type="button"
                     className="inline-flex justify-between w-full px-4 py-2 text-base font-medium leading-5 text-gray-700 bg-white "
                     onClick={() => setIsOpen(!isOpen)}
-                    aria-haspopup="true"
-                    aria-expanded="true"
                 >
                     {props.buttonText}
                     <svg
@@ -37,7 +35,7 @@ const Dropdown = (props) => {
                 </button>
             </div>
             {isOpen && (
-                <div className="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg" onMouseLeave={handleMouseLeave}> 
+                <div className="absolute right-0 z-20 w-full mt-2 origin-top-right rounded-md shadow-lg" onMouseLeave={handleMouseLeave}> 
                     <div className="bg-white rounded-md shadow-xs">
                         <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                             {props.options.map((option) => (
