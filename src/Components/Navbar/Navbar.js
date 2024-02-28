@@ -44,7 +44,7 @@ export default function NavBar(props) {
                                                 <div className="flex flex-col px-10" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                                     <h1 className='inline-block mb-5 text-xl font-bold whitespace-nowrap text-violet-700'>Account</h1>
                                                     <Link className='inline-block mb-2 font-medium text-gray-700 cursor-pointer whitespace-nowrap hover:bg-gray-100 hover:text-gray-900'>My Store</Link>
-                                                    <Link className='inline-block mb-2 font-medium text-gray-700 cursor-pointer whitespace-nowrap hover:bg-gray-100 hover:text-gray-900'>Profile</Link>
+                                                    <Link to='/profile'className='inline-block mb-2 font-medium text-gray-700 cursor-pointer whitespace-nowrap hover:bg-gray-100 hover:text-gray-900'>Profile</Link>
                                                     <Link className='inline-block mb-2 font-medium text-gray-700 cursor-pointer whitespace-nowrap hover:bg-gray-100 hover:text-gray-900'>Liked</Link>
                                                     <Link className='inline-block mb-2 font-medium text-gray-700 cursor-pointer whitespace-nowrap hover:bg-gray-100 hover:text-gray-900'>Settings</Link>
 
