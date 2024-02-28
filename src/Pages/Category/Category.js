@@ -5,6 +5,8 @@ import NavBar from '../../Components/Navbar/Navbar';
 import ItemCard from '../../Components/ItemCard/ItemCard';
 import { items, filters } from '../../SampleInventory/sampleInventory';
 
+import Breadcrumbs from '../../Components/Breadcrumbs/Breadcrumbs';
+
 const Category = () => {
     const { category } = useParams();
 
@@ -33,7 +35,8 @@ const Category = () => {
     return (
         <>
             <NavBar />
-            <div className='flex flex-col gap-20 mx-40 my-20'>
+            <Breadcrumbs />
+            <div className='flex flex-col gap-20 mx-40 mt-3'>
                 <div className='flex'>
                     <div className='w-1/4'>
                         <h1 className='text-3xl font-bold text-black'>{category.charAt(0).toUpperCase() + category.slice(1)}</h1>

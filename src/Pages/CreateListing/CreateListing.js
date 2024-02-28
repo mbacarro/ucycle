@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import NavBar from '../../Components/Navbar/Navbar';
+import Breadcrumbs from '../../Components/Breadcrumbs/Breadcrumbs';
 
 export default function CreateListing(props){
     const [name, setName] = useState('');
@@ -88,7 +89,8 @@ export default function CreateListing(props){
     return (
         <>
             <NavBar/>
-            <h1 className='mt-20 text-2xl font-bold mx-96'>Create a Listing</h1>
+            <Breadcrumbs />
+            <h1 className='mt-3 text-2xl font-bold mx-96'>Create a Listing</h1>
             <form className="mt-10 mb-20 mx-96" onSubmit={handleSubmit}>
                 <label className='block text-lg font-medium text-gray-900 mb-2.5'>
                     Name of item:

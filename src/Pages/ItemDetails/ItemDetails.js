@@ -7,6 +7,8 @@ import SchoolIcon from '../../Images/SchoolIcon.svg'
 import BuildingIcon from '../../Images/BuildingIcon.svg'
 import BoxIcon from '../../Images/BoxIcon.svg'
 
+import Breadcrumbs from '../../Components/Breadcrumbs/Breadcrumbs';
+
 
 function findItemById(itemId) {
     itemId = Number(itemId);
@@ -28,7 +30,8 @@ const ItemDetails = () => {
         return (
             <>
                 <NavBar />
-                <div className="mx-40 my-20">Item not found</div>;
+                <Breadcrumbs />
+                <div className="mx-40 mt-3">Item not found</div>;
             </>
 
 
@@ -42,7 +45,11 @@ const ItemDetails = () => {
     return (
         <>
             <NavBar />
-            <div className="mx-40 my-20">
+            <div className='mx-24'>
+                <Breadcrumbs />
+            </div>
+
+            <div className="mx-40 mt-3">
                 {/* Item */}
                 <div className='flex'>
                     {/* Item Images*/}
