@@ -34,27 +34,39 @@ const Category = () => {
         <>
             <NavBar />
             <div className='flex flex-col gap-20 mx-40 my-20'>
-                <h1 className='text-3xl font-bold text-black'>{category.charAt(0).toUpperCase() + category.slice(1)}</h1>
-                <div className='flex flex-wrap w-2/3 gap-3'>
-                    {categoryFilters.map((filter) => (
-                        <button className="h-10 px-8 text-lg text-center text-black border border-black rounded-full w-fit hover:bg-violet-200" key={filter}>{filter}</button>
-                    ))}
+                <div className='flex'>
+                    <div className='w-1/4'>
+                        <h1 className='text-3xl font-bold text-black'>{category.charAt(0).toUpperCase() + category.slice(1)}</h1>
+                    </div>
+                    <div className='flex flex-col w-3/4'>
+                        <div className='flex gap-5'>
+                            <button className="h-10 px-8 text-lg text-center text-black border border-black rounded-full w-fit hover:bg-gray-100 hover:text-gray-900">Button</button>
+                            <button className="h-10 px-8 text-lg text-center text-black border border-black rounded-full w-fit hover:bg-gray-100 hover:text-gray-900">Button</button>
+                        </div>
+                        <div className='ml-auto'>
+                            <select
+                                className="w-48 h-10 px-2 text-lg text-black border border-black rounded"
+                                value={sortBy}
+                                onChange={(e) => setSortBy(e.target.value)}
+                            >
+                                <option value="default">Sort By</option>
+                                <option value="priceAsc">Price: Low to High</option>
+                                <option value="priceDesc">Price: High to Low</option>
+                                <option value="nameAsc">Name: A to Z</option>
+                                <option value="nameDesc">Name: Z to A</option>
+                            </select>
+                        </div>
+                    </div>
+
                 </div>
-                <div className='ml-auto'>
-                    <select
-                        className="w-48 h-10 px-2 text-lg text-black border border-black rounded"
-                        value={sortBy}
-                        onChange={(e) => setSortBy(e.target.value)}
-                    >
-                        <option value="default">Sort By</option>
-                        <option value="priceAsc">Price: Low to High</option>
-                        <option value="priceDesc">Price: High to Low</option>
-                        <option value="nameAsc">Name: A to Z</option>
-                        <option value="nameDesc">Name: Z to A</option>
-                    </select>
-                </div>
-                <div>
-                    <div className="grid grid-cols-4 gap-4">
+                
+                <div className='flex'>
+                    <div className='flex flex-col w-1/4'>
+                        {categoryFilters.map((filter) => (
+                            <button className="w-full h-10 mb-4 text-lg font-medium text-left text-black hover:bg-gray-100 hover:text-gray-900" key={filter}>{filter}</button>
+                        ))}
+                    </div>
+                    <div className="grid w-3/4 grid-cols-4 gap-4">
                         {categoryItems.map(item => (
                             <ItemCard key={item.id} id={item.itemID} name={item.name} price={item.price} />
                         ))}
