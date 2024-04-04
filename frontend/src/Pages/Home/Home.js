@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 import NavBar from '../../Components/Navbar/Navbar';
 import ItemCard from '../../Components/ItemCard/ItemCard';
@@ -12,19 +13,21 @@ import accessoriesImg from '../../Images/Accessories.png'
 import miscImg from '../../Images/Misc.png'
 
 export default  function Home(props) {
-    const sampleItems = [
-        { id: 1, name: 'Sample Item 1', price: 50 },
-        { id: 2, name: 'Sample Item 2', price: 30 },
-        { id: 3, name: 'Sample Item 3', price: 40 },
-        { id: 4, name: 'Sample Item 4', price: 35 },
-        { id: 5, name: 'Sample Item 5', price: 45 },
-        { id: 6, name: 'Sample Item 6', price: 60 },
-        { id: 7, name: 'Sample Item 7', price: 100 },
-        { id: 8, name: 'Sample Item 8', price: 150 },
-        { id: 9, name: 'Sample Item 9', price: 50 },
-        { id: 10, name: 'Sample Item 10', price: 80 },
-    ];
 
+    const [listings, setListings] = useState(null)
+
+    useEffect(() => {
+        const fetchListings = async () => {
+            const response = await fetch('/api/listings')
+            const json = await response.json()
+
+            if (response.ok) {
+                setListings(json)
+            }
+        }
+
+        fetchListings()
+    }, [])
 
     return (
         <>
@@ -77,8 +80,8 @@ export default  function Home(props) {
                 <div id='Categories' className='flex flex-col gap-6 justify-evenly'>
                     <h1 className='text-2xl font-bold text-black'>Popular Items</h1>
                     <div className='grid grid-cols-4 gap-20'>
-                        {sampleItems.map(item => (
-                            <ItemCard key={item.id} id={item.id} name={item.name} price={item.price} />
+                        {listings && listings.map(listing => (
+                            <ItemCard id={listing._id} listing={listing} />
                         ))}
                     </div>
                 </div>

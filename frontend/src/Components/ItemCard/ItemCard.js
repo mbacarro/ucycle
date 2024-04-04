@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function ItemCard(props) {
+export default function ItemCard({listing}) {
     return (
-        <Link to={`/item/${props.id}`} className='block'>
-            <div key={`Item${props.id}`} id={`Item${props.id}`} className='flex flex-col w-full aspect-square'>
-                <div id={`Item${props.id}Img`} className='flex w-full border border-red aspect-square bg-violet-300'>
+        <Link to={`/item/${listing.name}`} className='block'>
+            <div id={`Item${listing.id}`} className='flex flex-col w-full aspect-square'>
+                <div id={`Item${listing.id}Img`} className='flex w-full border border-red aspect-square bg-violet-300'>
                     {/* Placeholder for item image */}
                 </div>
-                <h2 className='mt-3 text-lg font-medium text-black'>{props.name}</h2>
-                <h3 className='mt-3 font-normal text-black text-md'>${props.price}</h3>
+                <h2 className='mt-3 text-lg font-medium text-black'>{listing.name}</h2>
+                <h3 className='mt-3 font-normal text-black text-md'>${listing.price}</h3>
             </div>
         </Link>
     );

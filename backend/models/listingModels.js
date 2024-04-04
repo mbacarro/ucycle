@@ -11,6 +11,10 @@ const lisitngSchema = new Schema({
         type: Number,
         required: true
     },
+    category: {
+        type: String,
+        required: true
+    },
     condition: {
         type: String,
         required: true
@@ -23,9 +27,19 @@ const lisitngSchema = new Schema({
         type: [String],
         required: true
     },
+    otherLocationNotes: {
+        type: String,
+        required: false,
+        default: null
+    },
     paymentMethod: {
         type: [String],
         required: true
+    },
+    otherPaymentNotes: {
+        type: String,
+        required: false,
+        default: null
     },
     sellerID: {
         type: String,

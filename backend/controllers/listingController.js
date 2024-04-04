@@ -22,6 +22,16 @@ const getSold = async (req, res) => {
     }
 }
 
+const getCategory = async (req, res) => {
+    try {
+        const {category} = req.params
+        const availableListings = await Listing.find({category: category})
+        res.status(200).json(availableListings)
+    } catch (error) {
+        res.status(400).json({error: "Error with query"})
+    }
+}
+
 // GET listing by ID
 const getListing = async (req, res) => {
     try {
@@ -51,9 +61,12 @@ const createListing = async (req, res) => {
         name, 
         price, 
         condition, 
+        category,
         description, 
         pickupLocations, 
+        otherLocationNotes,
         paymentMethod, 
+        
         sellerID } = req.body 
 
         try {
@@ -61,9 +74,12 @@ const createListing = async (req, res) => {
                 name, 
                 price, 
                 condition, 
+                category,
                 description, 
                 pickupLocations, 
+                otherLocationNotes,
                 paymentMethod, 
+                otherPaymentNotes,
                 sellerID
             })
             res.status(200).json(listing)
@@ -128,5 +144,6 @@ module.exports = {
     getSold,
     getListing,
     deleteListing,
-    updateListing
+    updateListing,
+    getCategory
 }

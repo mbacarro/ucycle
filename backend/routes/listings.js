@@ -6,7 +6,8 @@ const {
     getSold,
     getListing,
     deleteListing,
-    updateListing
+    updateListing,
+    getCategory
 } = require("../controllers/listingController.js")
 
 const router = express.Router()
@@ -17,6 +18,8 @@ router.get('/', getAvailable)
 
 // GET all sold listings
 router.get('/sold', getSold)
+
+router.get('/category/:category', getCategory)
 
 // GET a single listing
 router.get('/:id', getListing)

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import NavBar from '../../Components/Navbar/Navbar';
@@ -10,27 +10,42 @@ import Breadcrumbs from '../../Components/Breadcrumbs/Breadcrumbs';
 const Category = () => {
     const { category } = useParams();
 
-    // Get items and filters for the selected category
-    const categoryItems = items[category] || [];
-    const categoryFilters = filters[category] || [];
+    let newCateg
 
-    console.log(categoryItems)
+    const [listings, setListings] = useState(null)
+
+    // Get items and filters for the selected category
+    useEffect(() => {
+        const fetchListings = async () => {
+            const response = await fetch('/api/listings/category/' + category.charAt(0).toUpperCase() + category.slice(1))
+            const json = await response.json()
+
+            if (response.ok) {
+                setListings(json)
+            }
+        }
+
+        fetchListings()
+        console.log(listings)
+    }, [])
+
+    const categoryFilters = filters[category] || [];
 
     const [sortBy, setSortBy] = useState('default');
 
     // Sort items based on the selected sort option
-    const sortedItems = categoryItems.sort((a, b) => {
-        if (sortBy === 'priceAsc') {
-            return a.price - b.price;
-        } else if (sortBy === 'priceDesc') {
-            return b.price - a.price;
-        } else if (sortBy === 'nameAsc') {
-            return a.name.localeCompare(b.name);
-        } else if (sortBy === 'nameDesc') {
-            return b.name.localeCompare(a.name);
-        }
-        return 0;
-    });
+    // const sortedItems = listings.sort((a, b) => {
+    //     if (sortBy === 'priceAsc') {
+    //         return a.price - b.price;
+    //     } else if (sortBy === 'priceDesc') {
+    //         return b.price - a.price;
+    //     } else if (sortBy === 'nameAsc') {
+    //         return a.name.localeCompare(b.name);
+    //     } else if (sortBy === 'nameDesc') {
+    //         return b.name.localeCompare(a.name);
+    //     }
+    //     return 0;
+    // });
 
     return (
         <>
@@ -70,8 +85,9 @@ const Category = () => {
                         ))}
                     </div>
                     <div className="grid w-3/4 grid-cols-4 gap-4">
-                        {categoryItems.map(item => (
-                            <ItemCard key={item.id} id={item.itemID} name={item.name} price={item.price} />
+                        {listings && listings.map(listing => (
+                            <ItemCard id={listing._id} listing={listing} />
+
                         ))}
                     </div>
                 </div>

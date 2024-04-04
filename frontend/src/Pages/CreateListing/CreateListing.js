@@ -11,11 +11,6 @@ export default function CreateListing(props){
     const [description, setDescription] = useState('');
     const [images, setImages] = useState([]);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle form submission logic here
-    };
-
     // location logic
     const [locationOptions, setLocationOptions] = useState(['Location 1', 'Location 2', 'Location 3', 'Location 4', 'Location 5'])
     const [selectedLocations, setSelectedLocations] = useState([]);
@@ -85,6 +80,45 @@ export default function CreateListing(props){
         setShowOtherNotes(e.target.checked);
     };
 
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        console.log(category)
+        
+        const listing = {
+            name, 
+            price, 
+            category,
+            condition, 
+            description, 
+            pickupLocations: selectedLocations, 
+            otherLocationNotes,
+            paymentMethod: selectedOptions, 
+            otherPaymentNotes: otherNotes,
+            sellerID: "test"
+        }
+
+        console.log(listing)
+
+        const response = await fetch('api/listings', {
+            method: "POST",
+            body: JSON.stringify(listing),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        const json = await response.json()
+
+        if (!response.ok) {
+            console.log(json.error)
+        }
+        if (response.ok) {
+            console.log("Successfully Created Listing")
+            alert("Successfully Created Listing")
+        }
+
+    };
 
     return (
         <>
