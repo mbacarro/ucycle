@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import { items } from '../../SampleInventory/sampleInventory';
 
@@ -9,24 +9,25 @@ import BoxIcon from '../../Images/BoxIcon.svg'
 
 import Breadcrumbs from '../../Components/Breadcrumbs/Breadcrumbs';
 
+export default function ItemDetails() {
+    const { itemId } = useParams()
 
-function findItemById(itemId) {
-    itemId = Number(itemId);
-    for (const category in items) {
-        const categoryItems = items[category];
-        const foundItem = categoryItems.find(item => item.itemID === itemId);
-        if (foundItem) {
-            return foundItem;
+    const [listing, setListing] = useState(null)
+
+    useEffect(() => {
+        const fetchListing = async () => {
+            const response = await fetch('/api/listings/' + itemId)
+            const json = await response.json()
+
+            if (response.ok) {
+                setListing(json)
+            }
         }
-    }
-    return null;
-}
 
-const ItemDetails = () => {
-    const { itemId } = useParams();
-    const item = findItemById(itemId);
+        fetchListing()
+    }, [])
 
-    if (!item) {
+    if (!listing) {
         return (
             <>
                 <NavBar />
@@ -37,9 +38,6 @@ const ItemDetails = () => {
 
         )
     }
-
-    console.log(item.pickupLocations)
-    console.log(item.paymentMethod)
 
 
     return (
@@ -70,9 +68,9 @@ const ItemDetails = () => {
                     <div className='w-1/2 h-fit'>
                         {/* General Item Info*/}
                         <div className='mx-2.5 mb-2'>
-                            <h1 className='text-2xl font-semibold'>{item.name}</h1>
-                            <p className='mb-3 text-lg'>${item.price}</p>
-                            <p className='mb-3 text-base'>{item.description}</p>
+                            <h1 className='text-2xl font-semibold'>{listing.name}</h1>
+                            <p className='mb-3 text-lg'>${listing.price}</p>
+                            <p className='mb-3 text-base'>{listing.description}</p>
                             <div className='flex gap-3 mb-8'>
                                 <div className='w-8 h-8 rounded-full'></div>
                                 <div className='w-8 h-8 rounded-full'></div>
@@ -91,12 +89,12 @@ const ItemDetails = () => {
                                     <img src={SchoolIcon} alt="" />
                                     <h3 className='text-base'>Available for on-campus pickup</h3>
                                 </div>
-                                <li>{item.pickupLocations.join(', ')}</li>
+                                <li>{listing.pickupLocations.join(', ')}</li>
                                 <div className='flex gap-2.5'>
                                     <img src={BuildingIcon} alt="" />
                                     <h3 className='text-base'>Available for off-campus pickup</h3>
                                 </div>
-                                <li>{item.pickupLocations.join(', ')}</li>
+                                <li>{listing.pickupLocations.join(', ')}</li>
                                 <div className='flex gap-2.5'>
                                     <img src={BoxIcon} alt="" />
                                     <h3 className='text-base'>No refunds or returns</h3>
@@ -110,7 +108,7 @@ const ItemDetails = () => {
                             <div className='flex gap-3 mx-2 my-9'>
                                 <div className='border border-black h-14 w-14'>Profile Img</div>
                                 <div className='flex flex-col'>
-                                    <h3 className='text-lg font-semibold'>{item.sellerID}</h3>
+                                    <h3 className='text-lg font-semibold'>{listing.sellerID}</h3>
                                     <div>Rating Placeholder</div>
                                 </div>
                             </div>
@@ -126,12 +124,11 @@ const ItemDetails = () => {
                 </div>
             </div>
             <div className='mx-40 my-20'>
-                <h2 className='text-2xl font-bold my-7'>More items from {item.sellerID}'s Shop</h2>
-                <p >Condition: {item.condition}</p>
-                <p >Payment Methods: {item.paymentMethod.join(', ')}</p>
+                <h2 className='text-2xl font-bold my-7'>More items from {listing.sellerID}'s Shop</h2>
+                <p >Condition: {listing.condition}</p>
+                <p >Payment Methods: {listing.paymentMethod.join(', ')}</p>
             </div>
         </>
     );
 };
 
-export default ItemDetails;

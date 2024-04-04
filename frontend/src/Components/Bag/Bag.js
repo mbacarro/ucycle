@@ -3,10 +3,10 @@ import ItemCard from '../ItemCard/ItemCard';
 
 export default function Bag(props) { 
     const sampleItems = [
-        { id: 1, name: 'Sample Item 1', price: 50 },
-        { id: 2, name: 'Sample Item 2', price: 30 },
-        { id: 3, name: 'Sample Item 3', price: 40 },
-        { id: 4, name: 'Sample Item 4', price: 35 }
+        { _id: 1, name: 'Sample Item 1', price: 50 },
+        { _id: 2, name: 'Sample Item 2', price: 30 },
+        { _id: 3, name: 'Sample Item 3', price: 40 },
+        { _id: 4, name: 'Sample Item 4', price: 35 }
     ];
 
     const [selectedOption, setSelectedOption] = useState(null);
@@ -27,7 +27,7 @@ export default function Bag(props) {
                     <p className='my-2 ml-auto text-base font-medium'>Select</p>
                     <div className='grid grid-cols-4 gap-6'>
                         {sampleItems.map(item => (
-                            <ItemCard key={item.id} id={item.id} name={item.name} price={item.price} />
+                            <ItemCard id={item.id} listing={item} />
                         ))}
                     </div>
                 </div>

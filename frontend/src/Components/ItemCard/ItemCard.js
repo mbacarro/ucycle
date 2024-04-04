@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 export default function ItemCard({listing}) {
     return (
-        <Link to={`/item/${listing.name}`} className='block'>
-            <div id={`Item${listing.id}`} className='flex flex-col w-full aspect-square'>
+        <Link to={`/item/${listing._id}`} className='block'>
+            <div id={`Item${listing._id}`} className='flex flex-col w-full aspect-square'>
                 <div id={`Item${listing.id}Img`} className='flex w-full border border-red aspect-square bg-violet-300'>
                     {/* Placeholder for item image */}
                 </div>
