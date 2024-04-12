@@ -10,12 +10,19 @@ const generateFileName = () => uuidv4();
 // GET all available listing
 const getAvailable = async (req, res) => {
     try {
-        const availableListings = await Listing.find({sold: false})
-        res.status(200).json(availableListings)
+        const availableListings = await Listing.find({ sold: false });
+        const listingsWithImageUrl = await Promise.all(availableListings.map(async (listing) => {
+            listing = listing.toObject(); // Convert to plain JavaScript object to avoid Mongoose schema limitations
+            listing.imageUrl = await getObjectSignedUrl(listing.listingPhoto);
+            return listing;
+        }));
+        console.log(listingsWithImageUrl);
+        res.status(200).json(listingsWithImageUrl);
     } catch (error) {
-        res.status(400).json({error: "Error with query"})
+        res.status(400).json({ error: "Error with query" });
     }
-}
+};
+
 
 // GET all sold listing
 const getSold = async (req, res) => {
@@ -48,15 +55,18 @@ const getListing = async (req, res) => {
             return res.status(404).json({ error: 'Invalid ID' });
         }
 
-        const listingFromID = await Listing.findById(id);
+        let listingFromID = await Listing.findById(id);
         if (!listingFromID) {
             return res.status(404).json({ error: 'Listing not found' });
         }
+        // Add imageUrl to the listing object
+        listingFromID = listingFromID.toObject(); // Convert to plain JavaScript object to avoid Mongoose schema limitations
+        listingFromID.imageUrl = await getObjectSignedUrl(listingFromID.listingPhoto);
 
         res.status(200).json(listingFromID);
     } catch (error) {
         console.error(error); // Log the error for debugging
-        res.status(400).json({ error: "Error with query" });
+        res.status(400).json({ error: error.message});
     }
 };
 
@@ -119,8 +129,10 @@ const deleteListing = async (req, res) => {
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(404).json({ error: 'Invalid ID' });
         }
+        
 
         const listingFromID = await Listing.findOneAndDelete({_id: id})
+        await deleteFile(listingFromID.listingPhoto)
         if (!listingFromID) {
             return res.status(404).json({ error: 'Listing not found' });
         }
@@ -128,7 +140,7 @@ const deleteListing = async (req, res) => {
         res.status(200).json(listingFromID);
     } catch (error) {
         console.error(error); // Log the error for debugging
-        res.status(400).json({ error: "Error with query" });
+        res.status(400).json({ error: error.message });
     }
 };
 

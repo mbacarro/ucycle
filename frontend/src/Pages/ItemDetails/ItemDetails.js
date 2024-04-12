@@ -61,6 +61,7 @@ export default function ItemDetails() {
                         </div>
                         {/* Image Preview*/}
                         <div className='w-3/5 border border-black aspect-square'>
+                            <img src={listing.imageUrl}></img>
 
                         </div>
                     </div>
