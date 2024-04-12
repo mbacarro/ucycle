@@ -63,44 +63,45 @@ const getListing = async (req, res) => {
 
 // POST (create) a new listing
 const createListing = async (req, res) => {
-    // const {
-    //     name, 
-    //     price, 
-    //     condition, 
-    //     category,
-    //     description, 
-    //     pickupLocations, 
-    //     otherLocationNotes,
-    //     paymentMethod, 
-    //     sellerID } = req.body 
+    const {
+        name, 
+        price, 
+        condition, 
+        category,
+        description, 
+        pickupLocations, 
+        otherLocationNotes,
+        paymentMethod, 
+        otherPaymentNotes,
+        sellerID } = req.body 
 
-    // const listingPhotoFile = req.file
+    const listingPhotoFile = req.file
 
-    // console.log("req.body ", req.body)
-    // console.log("req.file ", req.file)
+    console.log("req.body ", req.body)
+    console.log("req.file ", req.file)
 
 
-    // const imageName = generateFileName().toString()
-    // console.log(imageName)
+    const imageName = generateFileName().toString()
+    console.log(imageName)
 
-    // await uploadFile(listingPhotoFile.buffer, imageName, listingPhotoFile.mimetype)
+    await uploadFile(listingPhotoFile.buffer, imageName, listingPhotoFile.mimetype)
 
     try {
         const parsedPickupLocations = pickupLocations.includes(',') ? pickupLocations.split(',') : [pickupLocations];
         const parsedPaymentMethod = paymentMethod.includes(',') ? paymentMethod.split(',') : [paymentMethod];
 
         const listing = await Listing.create({
-            name: "test", 
-            price: 2, 
-            condition: "test", 
-            category: "test",
-            description: "test", 
-            pickupLocations: ["test"], 
-            otherLocationNotes: "",
-            paymentMethod: ["test"], 
-            otherPaymentNotes: "",
-            sellerID: "test",
-            listingPhoto: "test"
+            name, 
+            price, 
+            condition, 
+            category,
+            description, 
+            pickupLocations: parsedPickupLocations, 
+            otherLocationNotes,
+            paymentMethod: parsedPaymentMethod, 
+            otherPaymentNotes,
+            sellerID,
+            listingPhoto: imageName
         })
         res.status(200).json(listing)
     } catch (error) {
