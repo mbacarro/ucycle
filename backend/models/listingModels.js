@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema
 
-const lisitngSchema = new Schema({
+const listingSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -48,9 +48,13 @@ const lisitngSchema = new Schema({
     sold: {
         type: Boolean,
         default: false
+    },
+    listingPhoto: {
+        type: String,
+        required: true
     }
 }, {timestamps: true});
 
-const Listing = mongoose.model('Item', lisitngSchema);
+const Listing = mongoose.model('Item', listingSchema);
 
 module.exports = Listing;

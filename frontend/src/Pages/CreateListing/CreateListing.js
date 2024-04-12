@@ -9,7 +9,7 @@ export default function CreateListing(props){
     const [category, setCategory] = useState('');
     const [color, setColor] = useState('');
     const [description, setDescription] = useState('');
-    const [images, setImages] = useState([]);
+    const [images, setImages] = useState();
 
     // location logic
     const [locationOptions, setLocationOptions] = useState(['Location 1', 'Location 2', 'Location 3', 'Location 4', 'Location 5'])
@@ -31,7 +31,6 @@ export default function CreateListing(props){
         }
     };
 
-
     const handleLocationOptionChange = (index, value) => {
         setSelectedLocations((prevSelected) =>
             prevSelected.filter((location) => location !== locationOptions[index])
@@ -40,7 +39,6 @@ export default function CreateListing(props){
             prevOptions.map((option, i) => (i === index ? value : option))
         );
     };
-
 
     const handleOtherLocationNotesChange = (e) => {
         setOtherLocationNotes(e.target.value);
@@ -80,42 +78,45 @@ export default function CreateListing(props){
         setShowOtherNotes(e.target.checked);
     };
 
-
+    // other change hanlders
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        setImages(file);
+    };
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        console.log(category)
         
-        const listing = {
-            name, 
-            price, 
-            category,
-            condition, 
-            description, 
-            pickupLocations: selectedLocations, 
-            otherLocationNotes,
-            paymentMethod: selectedOptions, 
-            otherPaymentNotes: otherNotes,
-            sellerID: "test"
-        }
 
-        console.log(listing)
-
-        const response = await fetch('api/listings', {
-            method: "POST",
-            body: JSON.stringify(listing),
-            headers: {
-                "Content-Type": "application/json"
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('price', price);
+        formData.append('category', category);
+        formData.append('condition', condition);
+        formData.append('description', description);
+        formData.append('pickupLocations', selectedLocations);
+        formData.append('otherLocationNotes', otherLocationNotes);
+        formData.append('paymentMethod', selectedOptions);
+        formData.append('otherPaymentNotes', otherNotes);
+        formData.append('sellerID', "test");
+        formData.append('listingPhoto', images); // Assuming only one image is selected
+        
+        try {
+            const response = await fetch('api/listings', {
+                method: 'POST',
+                body: formData
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to create listing');
             }
-        })
-        const json = await response.json()
-
-        if (!response.ok) {
-            console.log(json.error)
-        }
-        if (response.ok) {
-            console.log("Successfully Created Listing")
-            alert("Successfully Created Listing")
+    
+            const data = await response.json();
+            console.log('Listing created:', data);
+            alert('Listing created successfully');
+        } catch (error) {
+            console.error('Error creating listing:', error.message);
+            alert('Failed to create listing');
         }
 
     };
@@ -181,7 +182,11 @@ export default function CreateListing(props){
                 <label className="block text-lg font-medium text-gray-900 mb-2.5 ">
                     Upload file
                 </label>
-                <input className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" aria-describedby="user_avatar_help" id="user_avatar" type="file" />
+                <input className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" 
+                    id="listing_photo" 
+                    type="file" 
+                    name='listingPhoto' 
+                    onChange={handleFileChange}/>
 
                 <fieldset>
                     <legend className="block text-lg font-medium text-gray-900 mb-2.5">Pickup locations</legend>

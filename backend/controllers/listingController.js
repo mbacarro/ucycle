@@ -1,5 +1,11 @@
 const Listing = require("../models/listingModels")
 const mongoose = require("mongoose")
+const { v4: uuidv4 } = require('uuid');
+
+
+const { uploadFile, deleteFile, getObjectSignedUrl } = require('../s3.js')
+
+const generateFileName = () => uuidv4();
 
 // GET all available listing
 const getAvailable = async (req, res) => {
@@ -11,7 +17,6 @@ const getAvailable = async (req, res) => {
     }
 }
 
-
 // GET all sold listing
 const getSold = async (req, res) => {
     try {
@@ -22,6 +27,7 @@ const getSold = async (req, res) => {
     }
 }
 
+// GET all listings in reqested category
 const getCategory = async (req, res) => {
     try {
         const {category} = req.params
@@ -57,35 +63,49 @@ const getListing = async (req, res) => {
 
 // POST (create) a new listing
 const createListing = async (req, res) => {
-    const {
-        name, 
-        price, 
-        condition, 
-        category,
-        description, 
-        pickupLocations, 
-        otherLocationNotes,
-        paymentMethod, 
-        
-        sellerID } = req.body 
+    // const {
+    //     name, 
+    //     price, 
+    //     condition, 
+    //     category,
+    //     description, 
+    //     pickupLocations, 
+    //     otherLocationNotes,
+    //     paymentMethod, 
+    //     sellerID } = req.body 
 
-        try {
-            const listing = await Listing.create({
-                name, 
-                price, 
-                condition, 
-                category,
-                description, 
-                pickupLocations, 
-                otherLocationNotes,
-                paymentMethod, 
-                otherPaymentNotes,
-                sellerID
-            })
-            res.status(200).json(listing)
-        } catch (error) {
-            res.status(400).json({error: error.message})
-        }
+    // const listingPhotoFile = req.file
+
+    // console.log("req.body ", req.body)
+    // console.log("req.file ", req.file)
+
+
+    // const imageName = generateFileName().toString()
+    // console.log(imageName)
+
+    // await uploadFile(listingPhotoFile.buffer, imageName, listingPhotoFile.mimetype)
+
+    try {
+        const parsedPickupLocations = pickupLocations.includes(',') ? pickupLocations.split(',') : [pickupLocations];
+        const parsedPaymentMethod = paymentMethod.includes(',') ? paymentMethod.split(',') : [paymentMethod];
+
+        const listing = await Listing.create({
+            name: "test", 
+            price: 2, 
+            condition: "test", 
+            category: "test",
+            description: "test", 
+            pickupLocations: ["test"], 
+            otherLocationNotes: "",
+            paymentMethod: ["test"], 
+            otherPaymentNotes: "",
+            sellerID: "test",
+            listingPhoto: "test"
+        })
+        res.status(200).json(listing)
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
 }
 
 
