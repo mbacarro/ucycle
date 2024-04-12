@@ -72,13 +72,20 @@ const createListing = async (req, res) => {
         pickupLocations, 
         otherLocationNotes,
         paymentMethod, 
+<<<<<<< Updated upstream
         otherPaymentNotes,
+=======
+>>>>>>> Stashed changes
         sellerID } = req.body 
 
     const listingPhotoFile = req.file
 
     console.log("req.body ", req.body)
+<<<<<<< Updated upstream
     console.log("req.file ", req.file)
+=======
+    // console.log("req.file ", req.file)
+>>>>>>> Stashed changes
 
 
     const imageName = generateFileName().toString()
@@ -86,22 +93,49 @@ const createListing = async (req, res) => {
 
     await uploadFile(listingPhotoFile.buffer, imageName, listingPhotoFile.mimetype)
 
-    try {
-        const parsedPickupLocations = pickupLocations.includes(',') ? pickupLocations.split(',') : [pickupLocations];
-        const parsedPaymentMethod = paymentMethod.includes(',') ? paymentMethod.split(',') : [paymentMethod];
+    // try {
+    //     const parsedPickupLocations = pickupLocations.includes(',') ? pickupLocations.split(',') : [pickupLocations];
+    //     const parsedPaymentMethod = paymentMethod.includes(',') ? paymentMethod.split(',') : [paymentMethod];
 
+    //     const listing = await Listing.create({
+    //         name: "test", 
+    //         price: 2, 
+    //         condition: "test", 
+    //         category: "test",
+    //         description: "test", 
+    //         pickupLocations: ["test"], 
+    //         otherLocationNotes: "",
+    //         paymentMethod: ["test"], 
+    //         otherPaymentNotes: "",
+    //         sellerID: "test",
+    //         listingPhoto: "test"
+    //     })
+    //     res.status(200).json(listing)
+    // } catch (error) {
+    //     res.status(400).json({error: error.message})
+    // }
+
+    try {
         const listing = await Listing.create({
             name, 
             price, 
             condition, 
             category,
             description, 
+<<<<<<< Updated upstream
             pickupLocations: parsedPickupLocations, 
             otherLocationNotes,
             paymentMethod: parsedPaymentMethod, 
             otherPaymentNotes,
             sellerID,
             listingPhoto: imageName
+=======
+            pickupLocations, 
+            otherLocationNotes,
+            paymentMethod, 
+            otherPaymentNotes,
+            sellerID
+>>>>>>> Stashed changes
         })
         res.status(200).json(listing)
     } catch (error) {

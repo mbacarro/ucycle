@@ -48,7 +48,8 @@ const listingSchema = new Schema({
     sold: {
         type: Boolean,
         default: false
-    },
+    }
+    ,
     listingPhoto: {
         type: String,
         required: true
