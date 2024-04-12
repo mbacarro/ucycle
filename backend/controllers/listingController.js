@@ -66,7 +66,7 @@ const createListing = async (req, res) => {
         pickupLocations, 
         otherLocationNotes,
         paymentMethod, 
-        
+        otherPaymentNotes,
         sellerID } = req.body 
 
         try {
