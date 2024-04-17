@@ -28,7 +28,12 @@ const getAvailable = async (req, res) => {
 const getSold = async (req, res) => {
     try {
         const soldListings = await Listing.find({sold: true})
-        res.status(200).json(soldListings)
+        const listingsWithImageUrl = await Promise.all(soldListings.map(async (listing) => {
+            listing = listing.toObject(); // Convert to plain JavaScript object to avoid Mongoose schema limitations
+            listing.imageUrl = await getObjectSignedUrl(listing.listingPhoto);
+            return listing;
+        }));
+        res.status(200).json(listingsWithImageUrl);
     } catch (error) {
         res.status(400).json({error: "Error with query"})
     }
@@ -39,7 +44,12 @@ const getCategory = async (req, res) => {
     try {
         const {category} = req.params
         const availableListings = await Listing.find({category: category})
-        res.status(200).json(availableListings)
+        const listingsWithImageUrl = await Promise.all(availableListings.map(async (listing) => {
+            listing = listing.toObject(); // Convert to plain JavaScript object to avoid Mongoose schema limitations
+            listing.imageUrl = await getObjectSignedUrl(listing.listingPhoto);
+            return listing;
+        }));
+        res.status(200).json(listingsWithImageUrl);
     } catch (error) {
         res.status(400).json({error: "Error with query"})
     }
