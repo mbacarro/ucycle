@@ -1,23 +1,27 @@
 const User = require("../models/userModels");
 const Listing = require("../models/listingModels")
 const { createSecretToken } = require("../utils/SecretToken");
+const {getObjectSignedUrl} = require("../s3.js")
 const bcrypt = require("bcryptjs");
 
 
 // POST signup a new user
 const Signup = async (req, res, next) => {
     try {
-        const { email, password, username, createdAt } = req.body;
-        const existingUser = await User.findOne({ email });
+        console.log(req.body)
+        const { email, password, username } = req.body;
+        
+        const existingEmail = await User.findOne({ email });
+        const existingUsername = await User.findOne({ username });
 
-        if (existingUser) {
-            return res.json({ message: "User already exists" });
+        if (existingEmail || existingUsername) {
+            return res.json({ message: "User already exists" , success: false});
         }
 
-        const user = await User.create({ email, password, username, createdAt });
+        const user = await User.create({ email, password, username });
 
         const token = createSecretToken(user._id);
-        res.cookie("token", token, {
+        res.cookie("user", token, {
             withCredentials: true,
             httpOnly: false,
         });
@@ -38,23 +42,23 @@ const Login = async (req, res, next) => {
 
         // invalid request body
         if(!email || !password ){
-            return res.json({message:'All fields are required'})
+            return res.json({message:'All fields are required', success: false })
         }
 
         // no user found with email
         const user = await User.findOne({ email });
         if(!user){
-            return res.json({message:'Incorrect password or email' }) 
+            return res.json({message:'Incorrect password or email' , success: false }) 
         }
 
         // password is incorrect
         const auth = await bcrypt.compare(password,user.password)
         if (!auth) {
-            return res.json({message:'Incorrect password or email' }) 
+            return res.json({message:'Incorrect password or email' , success: false }) 
         }
 
         const token = createSecretToken(user._id);
-        res.cookie("token", token, {
+        res.cookie("user", token, {
             withCredentials: true,
             httpOnly: false,
         });
@@ -81,19 +85,35 @@ const getProfile = async (req, res) => {
         }
     
         const userListings = await Listing.find({ sellerID: username });
+        const listingsWithImageUrl = await Promise.all(userListings.map(async (listing) => {
+            listing = listing.toObject(); // Convert to plain JavaScript object to avoid Mongoose schema limitations
+            listing.imageUrl = await getObjectSignedUrl(listing.listingPhoto);
+            return listing;
+        }));
     
         res.status(200).json({
+            success: true, 
             username: userProfile.username,
-            email: userProfile.email,
-            listings: userListings,
+            email: userProfile.email ,
+            listings: listingsWithImageUrl,
         });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
 
+// POST logout
+const Logout = async (req, res) => {
+    const { id } = req.user || {};
+    const token = createSecretToken(id);
+
+    res.cookie('user', token, { expires: new Date(0) });
+    res.status(200).json({ message: 'User logged out successfully', success: true });
+};
+
 module.exports = {
     Signup,
     Login,
-    getProfile
+    getProfile, 
+    Logout
 }

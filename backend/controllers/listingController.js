@@ -16,7 +16,6 @@ const getAvailable = async (req, res) => {
             listing.imageUrl = await getObjectSignedUrl(listing.listingPhoto);
             return listing;
         }));
-        console.log(listingsWithImageUrl);
         res.status(200).json(listingsWithImageUrl);
     } catch (error) {
         res.status(400).json({ error: "Error with query" });
@@ -92,17 +91,20 @@ const createListing = async (req, res) => {
         pickupLocations, 
         otherLocationNotes,
         paymentMethod, 
-        otherPaymentNotes,
-        sellerID } = req.body 
+        otherPaymentNotes
+    } = req.body 
 
     const listingPhotoFile = req.file
 
-    console.log("req.body ", req.body)
-    console.log("req.file ", req.file)
+    const { username } = req.user || {};
+
+
+    // console.log("req.body ", req.body)
+    // console.log("req.file ", req.file)
 
 
     const imageName = generateFileName().toString()
-    console.log(imageName)
+    // console.log(imageName)
 
     await uploadFile(listingPhotoFile.buffer, imageName, listingPhotoFile.mimetype)
 
@@ -120,7 +122,7 @@ const createListing = async (req, res) => {
             otherLocationNotes,
             paymentMethod: parsedPaymentMethod, 
             otherPaymentNotes,
-            sellerID,
+            sellerID: username,
             listingPhoto: imageName
         })
         res.status(200).json(listing)

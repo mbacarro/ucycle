@@ -1,6 +1,8 @@
 const express = require('express')
 const multer = require('multer')
 
+const {userVerification} = require("../middlewares/AuthMiddleware.js")
+
 
 const {
     createListing, 
@@ -30,7 +32,7 @@ router.get('/category/:category', getCategory)
 router.get('/:id', getListing)
 
 // POST a new listing
-router.post('/', upload.single('listingPhoto'), createListing)
+router.post('/', userVerification, upload.single('listingPhoto'), createListing)
 
 // DELETE an listing
 router.delete('/:id', deleteListing)

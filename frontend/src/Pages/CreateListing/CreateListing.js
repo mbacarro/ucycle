@@ -98,7 +98,6 @@ export default function CreateListing(props){
         formData.append('otherLocationNotes', otherLocationNotes);
         formData.append('paymentMethod', selectedOptions);
         formData.append('otherPaymentNotes', otherNotes);
-        formData.append('sellerID', "test");
         formData.append('listingPhoto', images); // Assuming only one image is selected
         
         try {
