@@ -165,18 +165,6 @@ export default function CreateListing(props){
                     <option value="Fair">Fair</option>
                     <option value="Poor">Poor</option>
                 </select>
-                
-                <label className='block text-lg font-medium text-gray-900 mb-2.5'>
-                    Item Color:
-                </label>
-                <select required className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" value={color} onChange={(e) => setColor(e.target.value)}>
-                    <option value=""></option>
-                    <option value="Red">Red</option>
-                    <option value="Blue">Blue</option>
-                    <option value="Green">Green</option>
-                    <option value="Black">Black</option>
-                    <option value="White">White</option>
-                </select>
 
                 <label className='block text-lg font-medium text-gray-900 mb-2.5'>
                     Description:

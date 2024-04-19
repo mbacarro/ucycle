@@ -5,9 +5,7 @@ export default function ItemCard({listing}) {
     return (
         <Link to={`/item/${listing._id}`} className='block'>
             <div id={`Item${listing._id}`} className='flex flex-col w-full aspect-square'>
-                <div id={`Item${listing.id}Img`} className='flex w-full border border-red aspect-square bg-violet-300'>
-                    <img src={listing.imageUrl}></img>
-                </div>
+                <img src={listing.imageUrl} className="object-cover aspect-square" alt="Listing Image" />
                 <h2 className='mt-3 text-lg font-medium text-black'>{listing.name}</h2>
                 <h3 className='mt-3 font-normal text-black text-md'>${listing.price}</h3>
             </div>
