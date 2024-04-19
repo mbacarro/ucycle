@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import NavBar from '../../Components/Navbar/Navbar';
 import Breadcrumbs from '../../Components/Breadcrumbs/Breadcrumbs';
 
 export default function CreateListing(props){
+    const navigate = useNavigate();
+
     const [name, setName] = useState('');
     const [price, setPrice] = useState(null);
     const [condition, setCondition] = useState('');
@@ -113,6 +117,7 @@ export default function CreateListing(props){
             const data = await response.json();
             console.log('Listing created:', data);
             alert('Listing created successfully');
+            navigate('/');
         } catch (error) {
             console.error('Error creating listing:', error.message);
             alert('Failed to create listing');
@@ -129,17 +134,17 @@ export default function CreateListing(props){
                 <label className='block text-lg font-medium text-gray-900 mb-2.5'>
                     Name of item:
                 </label>
-                <input className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" type="text" value={name} onChange={(e) => setName(e.target.value)} />
+                <input required className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" type="text" value={name} onChange={(e) => setName(e.target.value)} />
 
                 <label className='block text-lg font-medium text-gray-900 mb-2.5'>
                     Item Price:
                 </label>
-                <input className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
+                <input required className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
 
                 <label className='block text-lg font-medium text-gray-900 mb-2.5'>
                     Item Category:
                 </label>
-                <select className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" value={category} onChange={(e) => setCategory(e.target.value)}>
+                <select required className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" value={category} onChange={(e) => setCategory(e.target.value)}>
                     <option value=""></option>
                     <option value="Womenswear">Womenswear</option>
                     <option value="Menswear">Menswear</option>
@@ -152,7 +157,7 @@ export default function CreateListing(props){
                 <label className='block text-lg font-medium text-gray-900 mb-2.5'>
                     Item Condition:
                 </label>
-                <select className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" value={condition} onChange={(e) => setCondition(e.target.value)}>
+                <select required className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" value={condition} onChange={(e) => setCondition(e.target.value)}>
                     <option value=""></option>
                     <option value="New">New</option>
                     <option value="Like New">Like New</option>
@@ -164,7 +169,7 @@ export default function CreateListing(props){
                 <label className='block text-lg font-medium text-gray-900 mb-2.5'>
                     Item Color:
                 </label>
-                <select className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" value={color} onChange={(e) => setColor(e.target.value)}>
+                <select required className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" value={color} onChange={(e) => setColor(e.target.value)}>
                     <option value=""></option>
                     <option value="Red">Red</option>
                     <option value="Blue">Blue</option>
@@ -176,19 +181,34 @@ export default function CreateListing(props){
                 <label className='block text-lg font-medium text-gray-900 mb-2.5'>
                     Description:
                 </label>
-                <textarea rows='4' className="block p-2.5 w-1/2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 mb-6" value={description} onChange={(e) => setDescription(e.target.value)} />
+                <textarea required rows='4' className="block p-2.5 w-1/2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 mb-6" value={description} onChange={(e) => setDescription(e.target.value)} />
 
                 <label className="block text-lg font-medium text-gray-900 mb-2.5 ">
                     Upload file
                 </label>
-                <input className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" 
+                <input required className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" 
                     id="listing_photo" 
                     type="file" 
                     name='listingPhoto' 
                     onChange={handleFileChange}/>
 
                 <fieldset>
-                    <legend className="block text-lg font-medium text-gray-900 mb-2.5">Pickup locations</legend>
+                    <legend className="block text-lg font-medium text-gray-900 mb-2.5 relative">
+                        Pickup locations
+                        <input
+                            required
+                            id="pickup-locations"
+                            type="checkbox"
+                            value=""
+                            checked={selectedLocations.length > 0}
+                            onChange={(e) => {
+                                if (!e.target.checked) {
+                                    setSelectedLocations([]);
+                                }
+                            }}
+                            className="absolute top-0 left-0 opacity-0" // Hide the checkbox behind the legend
+                        />
+                    </legend>
                     {locationOptions.map((location, index) => (
                         <div key={index} className="flex items-center mb-4">
                             <input
@@ -229,13 +249,29 @@ export default function CreateListing(props){
                 </fieldset>
 
 
+
                 <fieldset>
-                    <legend className="block text-lg font-medium text-gray-900 mb-2.5">Payment options</legend>
+                    <legend className="block text-lg font-medium text-gray-900 mb-2.5 relative">
+                        Payment options
+                        <input
+                            required
+                            id="payment-options"
+                            type="checkbox"
+                            value=""
+                            checked={selectedOptions.length > 0}
+                            onChange={(e) => {
+                                if (!e.target.checked) {
+                                    setSelectedOptions([]);
+                                }
+                            }}
+                            className="absolute top-0 left-0 opacity-0" // Hide the checkbox behind the legend
+                        />
+                    </legend>
                     {paymentOptions.map((option, index) => (
                         <div key={index} className="flex items-center mb-4">
                             <input
-                                id={`payment-${option.toLowerCase()}`}
                                 type="checkbox"
+                                id={`payment-${option.toLowerCase()}`}
                                 value={option}
                                 checked={selectedOptions.includes(option)}
                                 onChange={() => handleOptionChange(option)}
