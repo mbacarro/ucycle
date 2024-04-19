@@ -1,11 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
 import { Link } from 'react-router-dom';
 
 
 import NavBar from '../../Components/Navbar/Navbar';
 import Breadcrumbs from '../../Components/Breadcrumbs/Breadcrumbs';
+import ItemCard from '../../Components/ItemCard/ItemCard';
 
 export default function Profile(props) {
+    const [profileData, setProfileData] = useState(null);
+
+    useEffect(() => {
+        const fetchProfileData = async () => {
+            try {
+                const response = await fetch('/api/auth/profile', {
+                    method: 'GET',
+                    credentials: 'include', // Include cookies in the request
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch profile data');
+                }
+
+                const data = await response.json();
+                setProfileData(data);
+            } catch (error) {
+                console.error('Error fetching profile data:', error.message);
+            }
+        };
+
+        fetchProfileData();
+    }, []);
+    
     return (
         <>
             <NavBar />
@@ -22,6 +48,24 @@ export default function Profile(props) {
                         <button className='my-4 text-lg font-medium text-left text-neutral-600 hover:bg-gray-100 hover:text-gray-900'>Log Out</button>
                     </div>
                     <div className='w-3/4 h-screen border border-black'>
+
+
+                    <div>
+                        {profileData ? (
+                            <>
+                                <h1>Welcome, {profileData.username}!</h1>
+                                <p>Email: {profileData.email}</p>
+                                <h2>Your Listings:</h2>
+                                <ul>
+                                    {profileData.listings.map((listing) => (
+                                        <ItemCard id={listing._id} listing={listing} />
+                                    ))}
+                                </ul>
+                            </>
+                        ) : (
+                            <p>Loading profile...</p>
+                        )}
+                    </div>
 
                     </div>
                 </div>

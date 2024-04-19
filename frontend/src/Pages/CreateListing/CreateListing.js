@@ -1,15 +1,30 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import NavBar from '../../Components/Navbar/Navbar';
 import Breadcrumbs from '../../Components/Breadcrumbs/Breadcrumbs';
 
+import { filters } from '../../SampleInventory/sampleInventory';
+
 export default function CreateListing(props){
+    const navigate = useNavigate();
+
     const [name, setName] = useState('');
     const [price, setPrice] = useState(null);
     const [condition, setCondition] = useState('');
     const [category, setCategory] = useState('');
-    const [color, setColor] = useState('');
+    const [subCategory, setSubCategory] = useState([]);
     const [description, setDescription] = useState('');
-    const [images, setImages] = useState([]);
+    const [images, setImages] = useState();
+
+    const handleCategoryChange = (e) => {
+        setCategory(e.target.value);
+        setSubCategory(''); // Reset subCategory when main category changes
+    };
+
+    const handleSubCategoryChange = (e) => {
+        setSubCategory(e.target.value);
+    };
 
     // location logic
     const [locationOptions, setLocationOptions] = useState(['Location 1', 'Location 2', 'Location 3', 'Location 4', 'Location 5'])
@@ -31,7 +46,6 @@ export default function CreateListing(props){
         }
     };
 
-
     const handleLocationOptionChange = (index, value) => {
         setSelectedLocations((prevSelected) =>
             prevSelected.filter((location) => location !== locationOptions[index])
@@ -40,7 +54,6 @@ export default function CreateListing(props){
             prevOptions.map((option, i) => (i === index ? value : option))
         );
     };
-
 
     const handleOtherLocationNotesChange = (e) => {
         setOtherLocationNotes(e.target.value);
@@ -80,42 +93,46 @@ export default function CreateListing(props){
         setShowOtherNotes(e.target.checked);
     };
 
-
+    // other change hanlders
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        setImages(file);
+    };
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        console.log(category)
         
-        const listing = {
-            name, 
-            price, 
-            category,
-            condition, 
-            description, 
-            pickupLocations: selectedLocations, 
-            otherLocationNotes,
-            paymentMethod: selectedOptions, 
-            otherPaymentNotes: otherNotes,
-            sellerID: "test"
-        }
 
-        console.log(listing)
-
-        const response = await fetch('api/listings', {
-            method: "POST",
-            body: JSON.stringify(listing),
-            headers: {
-                "Content-Type": "application/json"
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('price', price);
+        formData.append('category', category);
+        formData.append('subcategory', subCategory);
+        formData.append('condition', condition);
+        formData.append('description', description);
+        formData.append('pickupLocations', selectedLocations);
+        formData.append('otherLocationNotes', otherLocationNotes);
+        formData.append('paymentMethod', selectedOptions);
+        formData.append('otherPaymentNotes', otherNotes);
+        formData.append('listingPhoto', images); // Assuming only one image is selected
+        
+        try {
+            const response = await fetch('api/listings', {
+                method: 'POST',
+                body: formData
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to create listing');
             }
-        })
-        const json = await response.json()
-
-        if (!response.ok) {
-            console.log(json.error)
-        }
-        if (response.ok) {
-            console.log("Successfully Created Listing")
-            alert("Successfully Created Listing")
+    
+            const data = await response.json();
+            console.log('Listing created:', data);
+            alert('Listing created successfully');
+            navigate('/');
+        } catch (error) {
+            console.error('Error creating listing:', error.message);
+            alert('Failed to create listing');
         }
 
     };
@@ -129,17 +146,17 @@ export default function CreateListing(props){
                 <label className='block text-lg font-medium text-gray-900 mb-2.5'>
                     Name of item:
                 </label>
-                <input className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" type="text" value={name} onChange={(e) => setName(e.target.value)} />
+                <input required className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" type="text" value={name} onChange={(e) => setName(e.target.value)} />
 
                 <label className='block text-lg font-medium text-gray-900 mb-2.5'>
                     Item Price:
                 </label>
-                <input className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
+                <input required className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
 
                 <label className='block text-lg font-medium text-gray-900 mb-2.5'>
                     Item Category:
                 </label>
-                <select className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" value={category} onChange={(e) => setCategory(e.target.value)}>
+                <select required className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" value={category} onChange={handleCategoryChange}>
                     <option value=""></option>
                     <option value="Womenswear">Womenswear</option>
                     <option value="Menswear">Menswear</option>
@@ -148,11 +165,32 @@ export default function CreateListing(props){
                     <option value="Accessories">Accessories</option>
                     <option value="Misc">Misc</option>
                 </select>
+                
+                {category && (
+                    <div>
+                        <label className="block text-lg font-medium text-gray-900 mb-2.5">
+                            Sub Category:
+                        </label>
+                        <select
+                            required
+                            className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                            value={subCategory}
+                            onChange={handleSubCategoryChange}
+                        >
+                            <option value=""></option>
+                            {filters[category.toLocaleLowerCase()].map((subCategory) => (
+                                <option key={subCategory} value={subCategory}>
+                                    {subCategory}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                )}
 
                 <label className='block text-lg font-medium text-gray-900 mb-2.5'>
                     Item Condition:
                 </label>
-                <select className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" value={condition} onChange={(e) => setCondition(e.target.value)}>
+                <select required className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" value={condition} onChange={(e) => setCondition(e.target.value)}>
                     <option value=""></option>
                     <option value="New">New</option>
                     <option value="Like New">Like New</option>
@@ -160,31 +198,38 @@ export default function CreateListing(props){
                     <option value="Fair">Fair</option>
                     <option value="Poor">Poor</option>
                 </select>
-                
-                <label className='block text-lg font-medium text-gray-900 mb-2.5'>
-                    Item Color:
-                </label>
-                <select className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" value={color} onChange={(e) => setColor(e.target.value)}>
-                    <option value=""></option>
-                    <option value="Red">Red</option>
-                    <option value="Blue">Blue</option>
-                    <option value="Green">Green</option>
-                    <option value="Black">Black</option>
-                    <option value="White">White</option>
-                </select>
 
                 <label className='block text-lg font-medium text-gray-900 mb-2.5'>
                     Description:
                 </label>
-                <textarea rows='4' className="block p-2.5 w-1/2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 mb-6" value={description} onChange={(e) => setDescription(e.target.value)} />
+                <textarea required rows='4' className="block p-2.5 w-1/2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 mb-6" value={description} onChange={(e) => setDescription(e.target.value)} />
 
                 <label className="block text-lg font-medium text-gray-900 mb-2.5 ">
                     Upload file
                 </label>
-                <input className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" aria-describedby="user_avatar_help" id="user_avatar" type="file" />
+                <input required className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" 
+                    id="listing_photo" 
+                    type="file" 
+                    name='listingPhoto' 
+                    onChange={handleFileChange}/>
 
                 <fieldset>
-                    <legend className="block text-lg font-medium text-gray-900 mb-2.5">Pickup locations</legend>
+                    <legend className="block text-lg font-medium text-gray-900 mb-2.5 relative">
+                        Pickup locations
+                        <input
+                            required
+                            id="pickup-locations"
+                            type="checkbox"
+                            value=""
+                            checked={selectedLocations.length > 0}
+                            onChange={(e) => {
+                                if (!e.target.checked) {
+                                    setSelectedLocations([]);
+                                }
+                            }}
+                            className="absolute top-0 left-0 opacity-0" // Hide the checkbox behind the legend
+                        />
+                    </legend>
                     {locationOptions.map((location, index) => (
                         <div key={index} className="flex items-center mb-4">
                             <input
@@ -225,13 +270,29 @@ export default function CreateListing(props){
                 </fieldset>
 
 
+
                 <fieldset>
-                    <legend className="block text-lg font-medium text-gray-900 mb-2.5">Payment options</legend>
+                    <legend className="block text-lg font-medium text-gray-900 mb-2.5 relative">
+                        Payment options
+                        <input
+                            required
+                            id="payment-options"
+                            type="checkbox"
+                            value=""
+                            checked={selectedOptions.length > 0}
+                            onChange={(e) => {
+                                if (!e.target.checked) {
+                                    setSelectedOptions([]);
+                                }
+                            }}
+                            className="absolute top-0 left-0 opacity-0" // Hide the checkbox behind the legend
+                        />
+                    </legend>
                     {paymentOptions.map((option, index) => (
                         <div key={index} className="flex items-center mb-4">
                             <input
-                                id={`payment-${option.toLowerCase()}`}
                                 type="checkbox"
+                                id={`payment-${option.toLowerCase()}`}
                                 value={option}
                                 checked={selectedOptions.includes(option)}
                                 onChange={() => handleOptionChange(option)}

@@ -1,4 +1,8 @@
 const express = require('express')
+const multer = require('multer')
+
+const {userVerification} = require("../middlewares/AuthMiddleware.js")
+
 
 const {
     createListing, 
@@ -11,6 +15,9 @@ const {
 } = require("../controllers/listingController.js")
 
 const router = express.Router()
+
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage })
 
 
 // GET all available listings
@@ -25,7 +32,7 @@ router.get('/category/:category', getCategory)
 router.get('/:id', getListing)
 
 // POST a new listing
-router.post('/', createListing)
+router.post('/', userVerification, upload.single('listingPhoto'), createListing)
 
 // DELETE an listing
 router.delete('/:id', deleteListing)

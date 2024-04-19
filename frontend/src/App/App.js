@@ -13,6 +13,8 @@ import ItemDetails from '../Pages/ItemDetails/ItemDetails.js';
 import MyStore from '../Pages/Account/MyStore.js';
 import Liked from '../Pages/Account/Liked.js';
 import Settings from '../Pages/Account/Settings.js';
+import Register from '../Pages/Register/Register.js';
+import Login from '../Pages/Login/Login.js';
 
 function App() {
   return (
@@ -27,11 +29,12 @@ function App() {
       <Route path="/account/liked" element={<Liked />} />
       <Route path="/account/settings" element={<Settings />} />
 
-
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
 
       <Route path="/report" element={<Report />} />
       <Route path="/sell" element={<CreateListing />} />
-      <Route path="/category/:category" element={<Category />} />
+      <Route path="/:category/:subcategory?" element={<Category />} />
       <Route path="/item/:itemId" element={<ItemDetails />} />
       <Route path="*" element={<Home />} />
     </Routes>
