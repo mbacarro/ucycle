@@ -49,27 +49,27 @@ export default  function Home(props) {
                 <div id='Categories' className='flex flex-col justify-center gap-6'>
                     <h1 className='text-2xl font-bold text-black'>Shop by Category</h1>
                     <div className='grid grid-cols-6 gap-4'>
-                        <Link to="/category/womenswear" className='flex flex-col w-full aspect-square'>
+                        <Link to="/womenswear" className='flex flex-col w-full aspect-square'>
                             <img src={womenswearImg} alt="Womenswear" className='object-cover w-full aspect-square' />
                             <h2 className='mt-3 text-lg font-medium text-black'>Womenswear</h2>
                         </Link>
-                        <Link to="/category/menswear" className='flex flex-col w-full aspect-square'>
+                        <Link to="/menswear" className='flex flex-col w-full aspect-square'>
                             <img src={menswearImg} alt="Menswear" className='object-cover w-full aspect-square' />
                             <h2 className='mt-3 text-lg font-medium text-black'>Menswear</h2>
                         </Link>
-                        <Link to="/category/homegoods" className='flex flex-col w-full aspect-square'>
+                        <Link to="/homegoods" className='flex flex-col w-full aspect-square'>
                             <img src={homegoodsImg} alt="Home Goods" className='object-cover w-full aspect-square' />
                             <h2 className='mt-3 text-lg font-medium text-black'>Home Goods</h2>
                         </Link>
-                        <Link to="/category/electronics" className='flex flex-col w-full aspect-square'>
+                        <Link to="/electronics" className='flex flex-col w-full aspect-square'>
                             <img src={electronicsImg} alt="Electronics" className='object-cover w-full aspect-square' />
                             <h2 className='mt-3 text-lg font-medium text-black'>Electronics</h2>
                         </Link>
-                        <Link to="/category/accessories" className='flex flex-col w-full aspect-square '>
+                        <Link to="/accessories" className='flex flex-col w-full aspect-square '>
                             <img src={accessoriesImg} alt="Accessories" className='object-cover w-full aspect-square' />
                             <h2 className='mt-3 text-lg font-medium text-black'>Accessories</h2>
                         </Link>
-                        <Link to="/category/misc" className='flex flex-col w-full aspect-square'>
+                        <Link to="/misc" className='flex flex-col w-full aspect-square'>
                             <img src={miscImg} alt="Misc" className='object-cover w-full aspect-square' />
                             <h2 className='mt-3 text-lg font-medium text-black'>Misc</h2>
                         </Link>

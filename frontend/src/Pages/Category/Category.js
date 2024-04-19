@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+
 
 import NavBar from '../../Components/Navbar/Navbar';
 import ItemCard from '../../Components/ItemCard/ItemCard';
@@ -8,42 +9,61 @@ import { items, filters } from '../../SampleInventory/sampleInventory';
 import Breadcrumbs from '../../Components/Breadcrumbs/Breadcrumbs';
 
 const Category = () => {
-    const { category } = useParams();
+    const { category, subcategory } = useParams();
+    const navigate = useNavigate();
+
+
+    // Check if subcategory is provided
+    const hasSubcategory = subcategory !== undefined && subcategory !== '';
 
     const [listings, setListings] = useState([])
 
     // Get items and filters for the selected category
     useEffect(() => {
+
+        if(!(category in filters)) {
+            navigate('/');
+            return
+        }
+
         const fetchListings = async () => {
             const response = await fetch('/api/listings/category/' + category.charAt(0).toUpperCase() + category.slice(1))
             const json = await response.json()
 
             if (response.ok) {
-                setListings(json)
-                console.log(listings)
+                let filteredListings = json;
+                if (hasSubcategory) {
+                    filteredListings = json.filter(listing => listing.subcategory &&  listing.subcategory.toLowerCase() === subcategory.toLowerCase());
+                }
+                setListings(filteredListings);
             }
         }
 
         fetchListings()
-    }, [])
+    }, [category, subcategory])
 
     const categoryFilters = filters[category] || [];
 
     const [sortBy, setSortBy] = useState('default');
 
     //Sort items based on the selected sort option
-    const sortedItems = listings.sort((a, b) => {
-        if (sortBy === 'priceAsc') {
-            return a.price - b.price;
-        } else if (sortBy === 'priceDesc') {
-            return b.price - a.price;
-        } else if (sortBy === 'nameAsc') {
-            return a.name.localeCompare(b.name);
-        } else if (sortBy === 'nameDesc') {
-            return b.name.localeCompare(a.name);
-        }
-        return 0;
-    });
+    useEffect(() => {
+        const sorted = [...listings].sort((a, b) => {
+            if (sortBy === 'priceAsc') {
+                return a.price - b.price;
+            } else if (sortBy === 'priceDesc') {
+                return b.price - a.price;
+            } else if (sortBy === 'nameAsc') {
+                return a.name.localeCompare(b.name);
+            } else if (sortBy === 'nameDesc') {
+                return b.name.localeCompare(a.name);
+            }
+            return 0;
+        });
+
+        setListings(sorted);
+    }, [sortBy]);
+
 
     return (
         <>
@@ -75,7 +95,9 @@ const Category = () => {
                 <div className='flex'>
                     <div className='flex flex-col w-1/4'>
                         {categoryFilters.map((filter) => (
-                            <button className="w-full h-10 mb-4 text-lg font-medium text-left text-black hover:bg-gray-100 hover:text-gray-900" key={filter}>{filter}</button>
+                            <Link to={`/${category}/${filter.toLowerCase()}`}>
+                                <button className="w-full h-10 mb-4 text-lg font-medium text-left text-black hover:bg-gray-100 hover:text-gray-900" key={filter}>{filter}</button>
+                            </Link>
                         ))}
                     </div>
                     <div className="grid w-3/4 grid-cols-4 gap-4">

@@ -34,7 +34,7 @@ function App() {
 
       <Route path="/report" element={<Report />} />
       <Route path="/sell" element={<CreateListing />} />
-      <Route path="/category/:category" element={<Category />} />
+      <Route path="/:category/:subcategory?" element={<Category />} />
       <Route path="/item/:itemId" element={<ItemDetails />} />
       <Route path="*" element={<Home />} />
     </Routes>
