@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Dropdown from '../Dropdown/Dropdown';
 import Cookies from 'js-cookie'
 
@@ -13,6 +13,8 @@ import { filters } from '../../SampleInventory/sampleInventory';
 export default function NavBar(props) {
 
     const [isProfileOpen, setIsProfileOpen] = useState(false);
+    const navigate = useNavigate();
+
 
     const handleMouseLeave = () => {
         setIsProfileOpen(false);
@@ -60,10 +62,10 @@ export default function NavBar(props) {
             if (data.success) {
                 Cookies.remove('user', { path: '/', domain: 'localhost'})
                 alert("Successfully Logged Out")
-                
+                navigate('/');
             }
             } catch (error) {
-            console.error('Error logging out:', error);
+                console.error('Error logging out:', error);
             }
     };
 
