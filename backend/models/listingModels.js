@@ -15,6 +15,10 @@ const listingSchema = new Schema({
         type: String,
         required: true
     },
+    subcategory: {
+        type: String,
+        required: true
+    },
     condition: {
         type: String,
         required: true

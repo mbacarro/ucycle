@@ -60,10 +60,7 @@ export default function ItemDetails() {
                             <div className='w-24 h-24 border border-black'></div>
                         </div>
                         {/* Image Preview*/}
-                        <div className='w-3/5 border border-black aspect-square'>
-                            <img src={listing.imageUrl}></img>
-
-                        </div>
+                            <img src={listing.imageUrl} className='object-cover w-3/5 aspect-square'></img>
                     </div>
                     {/* Item Details*/}
                     <div className='w-1/2 h-fit'>
@@ -127,6 +124,7 @@ export default function ItemDetails() {
             <div className='mx-40 my-20'>
                 <h2 className='text-2xl font-bold my-7'>More items from {listing.sellerID}'s Shop</h2>
                 <p >Condition: {listing.condition}</p>
+                <p >subcategory: {listing.subcategory}</p>
                 <p >Payment Methods: {listing.paymentMethod.join(', ')}</p>
             </div>
         </>

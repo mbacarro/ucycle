@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import NavBar from '../../Components/Navbar/Navbar';
 import Breadcrumbs from '../../Components/Breadcrumbs/Breadcrumbs';
 
+import { filters } from '../../SampleInventory/sampleInventory';
+
 export default function CreateListing(props){
     const navigate = useNavigate();
 
@@ -11,9 +13,18 @@ export default function CreateListing(props){
     const [price, setPrice] = useState(null);
     const [condition, setCondition] = useState('');
     const [category, setCategory] = useState('');
-    const [color, setColor] = useState('');
+    const [subCategory, setSubCategory] = useState([]);
     const [description, setDescription] = useState('');
     const [images, setImages] = useState();
+
+    const handleCategoryChange = (e) => {
+        setCategory(e.target.value);
+        setSubCategory(''); // Reset subCategory when main category changes
+    };
+
+    const handleSubCategoryChange = (e) => {
+        setSubCategory(e.target.value);
+    };
 
     // location logic
     const [locationOptions, setLocationOptions] = useState(['Location 1', 'Location 2', 'Location 3', 'Location 4', 'Location 5'])
@@ -96,6 +107,7 @@ export default function CreateListing(props){
         formData.append('name', name);
         formData.append('price', price);
         formData.append('category', category);
+        formData.append('subcategory', subCategory);
         formData.append('condition', condition);
         formData.append('description', description);
         formData.append('pickupLocations', selectedLocations);
@@ -144,7 +156,7 @@ export default function CreateListing(props){
                 <label className='block text-lg font-medium text-gray-900 mb-2.5'>
                     Item Category:
                 </label>
-                <select required className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" value={category} onChange={(e) => setCategory(e.target.value)}>
+                <select required className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" value={category} onChange={handleCategoryChange}>
                     <option value=""></option>
                     <option value="Womenswear">Womenswear</option>
                     <option value="Menswear">Menswear</option>
@@ -153,6 +165,27 @@ export default function CreateListing(props){
                     <option value="Accessories">Accessories</option>
                     <option value="Misc">Misc</option>
                 </select>
+                
+                {category && (
+                    <div>
+                        <label className="block text-lg font-medium text-gray-900 mb-2.5">
+                            Sub Category:
+                        </label>
+                        <select
+                            required
+                            className="block w-1/2 p-1 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                            value={subCategory}
+                            onChange={handleSubCategoryChange}
+                        >
+                            <option value=""></option>
+                            {filters[category.toLocaleLowerCase()].map((subCategory) => (
+                                <option key={subCategory} value={subCategory}>
+                                    {subCategory}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                )}
 
                 <label className='block text-lg font-medium text-gray-900 mb-2.5'>
                     Item Condition:
