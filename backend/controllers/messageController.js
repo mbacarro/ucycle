@@ -84,7 +84,9 @@ const getConversations = async (req, res) => {
 	try {
 		const loggedInUser = req.user.id;
 
-		const conversations = await Conversation.find({ participants: loggedInUser }).populate("participants messages listing");
+		const conversations = await Conversation.find({ participants: loggedInUser })
+			.populate("participants messages listing")
+			.sort({ updatedAt: -1 });
 
 		// Transform the conversations array to include only the required fields
 		const transformedConversations = conversations.map(conversation => {
