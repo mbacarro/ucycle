@@ -7,6 +7,7 @@ const cors = require('cors');
 
 const listingRoutes = require('./routes/listings.js')
 const authRoutes = require("./routes/authRoutes.js")
+const messageRoutes = require('./routes/messageRoutes.js')
 
 // express app
 const app = express()
@@ -27,6 +28,7 @@ app.use(cors({
 //routes
 app.use('/api/listings', listingRoutes)
 app.use('/api/auth', authRoutes)
+app.use('/api/messages', messageRoutes)
 
 
 // connect to db 

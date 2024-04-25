@@ -72,7 +72,7 @@ const Login = async (req, res, next) => {
 // GET profile information
 const getProfile = async (req, res) => {
     try {
-        const { username } = req.user || {};
+        const { username, id } = req.user || {};
     
         if (!username) {
             return res.status(401).json({ error: 'User is not authenticated' });
@@ -95,6 +95,7 @@ const getProfile = async (req, res) => {
             success: true, 
             username: userProfile.username,
             email: userProfile.email ,
+            id,
             listings: listingsWithImageUrl,
         });
     } catch (error) {
