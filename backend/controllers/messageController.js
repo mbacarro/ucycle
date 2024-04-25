@@ -13,7 +13,7 @@ const sendMessage = async (req, res) => {
 	try {	
 		const { message, listingId, receiverId } = req.body;
 		const { conversationId } = req.params;
-		const senderId = req.user.id;
+		const loggedInUser = req.user.id;
 
 		// Check if the listing exists
 		const listing = await Listing.findById(listingId);
@@ -32,7 +32,7 @@ const sendMessage = async (req, res) => {
 		// Check if it's a request to create a new conversation
 		if (conversationId === 'new') {
 			conversation = await Conversation.create({
-				participants: [senderId, receiverId],
+				participants: [loggedInUser, receiverId],
 				listing: listingId,
 			});
 		} else {
@@ -45,7 +45,7 @@ const sendMessage = async (req, res) => {
 		}
 
 		const newMessage = new Message({
-			senderId,
+			senderId: loggedInUser,
 			receiverId,
 			message,
 		});
@@ -80,7 +80,46 @@ const getMessages = async (req, res) => {
 	}
 };
 
+const getConversations = async (req, res) => {
+	try {
+		const loggedInUser = req.user.id;
+
+		const conversations = await Conversation.find({ participants: loggedInUser }).populate("participants messages listing");
+
+		// Transform the conversations array to include only the required fields
+		const transformedConversations = conversations.map(conversation => {
+			// Find the other participant's username
+			const otherParticipant = conversation.participants.find(participant => participant._id.toString() !== loggedInUser.toString());
+			const otherParticipantUsername = otherParticipant.username;
+			const otherParticipantID = otherParticipant._id;
+
+			// Find the most recent message
+			const mostRecentMessage = conversation.messages[conversation.messages.length - 1];
+
+			// Extract the listing id and name
+			const listingId = conversation.listing._id;
+			const listingName = conversation.listing.name;
+
+			return {
+				otherParticipantUsername,
+				loggedInUser,
+				otherParticipantID,
+				mostRecentMessage,
+				listingId,
+				listingName
+			};
+		});
+
+		res.status(200).json(transformedConversations);
+	} catch (error) {
+		console.log("Error in getConversations controller: ", error.message);
+		res.status(500).json({ error: "Internal server error" });
+	}
+};
+
+
 module.exports = {
     sendMessage,
-    getMessages
+    getMessages,
+	getConversations
 }
