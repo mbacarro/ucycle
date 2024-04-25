@@ -89,6 +89,7 @@ const getConversations = async (req, res) => {
 		// Transform the conversations array to include only the required fields
 		const transformedConversations = conversations.map(conversation => {
 			// Find the other participant's username
+			const conversationsId = conversation._id;
 			const otherParticipant = conversation.participants.find(participant => participant._id.toString() !== loggedInUser.toString());
 			const otherParticipantUsername = otherParticipant.username;
 			const otherParticipantID = otherParticipant._id;
@@ -101,9 +102,10 @@ const getConversations = async (req, res) => {
 			const listingName = conversation.listing.name;
 
 			return {
-				otherParticipantUsername,
-				loggedInUser,
+				conversationsId,
+				loggedInUserID: loggedInUser,
 				otherParticipantID,
+				otherParticipantUsername,
 				mostRecentMessage,
 				listingId,
 				listingName
