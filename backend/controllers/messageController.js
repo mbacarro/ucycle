@@ -31,10 +31,20 @@ const sendMessage = async (req, res) => {
 
 		// Check if it's a request to create a new conversation
 		if (conversationId === 'new') {
-			conversation = await Conversation.create({
-				participants: [loggedInUser, receiverId],
+			// Check if a conversation already exists with the same participants and listing
+			const existingConversation = await Conversation.findOne({
+				participants: { $all: [loggedInUser, receiverId] },
 				listing: listingId,
 			});
+
+			if (existingConversation) {
+				conversation = existingConversation;
+			} else {
+				conversation = await Conversation.create({
+					participants: [loggedInUser, receiverId],
+					listing: listingId,
+				});
+			}
 		} else {
 			// Handle existing conversation
 			conversation = await Conversation.findById(conversationId);
