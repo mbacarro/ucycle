@@ -50,22 +50,38 @@ export default function Profile(props) {
                     <div className='w-3/4 h-screen border border-black'>
 
 
-                    <div>
-                        {profileData ? (
-                            <>
-                                <h1>Welcome, {profileData.username}!</h1>
-                                <p>Email: {profileData.email}</p>
-                                <h2>Your Listings:</h2>
-                                <ul>
-                                    {profileData.listings.map((listing) => (
-                                        <ItemCard id={listing._id} listing={listing} />
-                                    ))}
-                                </ul>
-                            </>
-                        ) : (
-                            <p>Loading profile...</p>
-                        )}
-                    </div>
+                        <div>
+                            {profileData ? (
+                                <>
+                                    <img
+                                        className='object-cover w-40 h-40 rounded-full'
+                                        alt='Tailwind CSS chat bubble component'
+                                        src={
+                                            "https://cdn0.iconfinder.com/data/icons/communication-line-10/24/account_profile_user_contact_person_avatar_placeholder-512.png"
+                                        }
+                                    />
+                                    <div class="flex gap-12 mb-6">
+                                        <div class="text-neutral-500 text-base font-medium flex flex-col gap-2">
+                                            <p>Username: <span id="condition"></span></p>
+                                            <p>Email: <span id="category"></span></p>
+                                        </div>
+                                        <div className='flex flex-col gap-2 text-base font-normal text-black'>
+                                            <p> {profileData.username}</p>
+                                            <p> {profileData.email}</p>
+                                        </div>
+                                    </div>
+
+                                    {/* <h2>Your Listings:</h2>
+                                    <ul>
+                                        {profileData.listings.map((listing) => (
+                                            <ItemCard id={listing._id} listing={listing} />
+                                        ))}
+                                    </ul> */}
+                                </>
+                            ) : (
+                                <p>Loading profile...</p>
+                            )}
+                        </div>
 
                     </div>
                 </div>
