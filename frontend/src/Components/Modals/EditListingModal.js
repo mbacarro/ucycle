@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
-import { useNavigate } from 'react-router-dom';
-import { filters } from '../SampleInventory/sampleInventory';
+import { Modal } from "flowbite-react";
+import { filters } from '../../SampleInventory/sampleInventory';
 
 
 const EditListingModal = ({ listingData }) => {
     console.log(listingData);
-    const navigate = useNavigate();
 
     const [openModal, setOpenModal] = useState(false);
 
@@ -130,14 +128,16 @@ const EditListingModal = ({ listingData }) => {
             console.log(`Item ${listingData._id} info updated`);
 
             setOpenModal(false);
-            navigate('/account/my-store');
+            window.location.reload();
+
 
         } catch (error) {
             alert('Errr updating iotem: ', error.message);
             console.error('Errr updating iotem:', error);
 
             setOpenModal(false);
-            navigate('/account/my-store');
+            window.location.reload();
+
         }
 
     };

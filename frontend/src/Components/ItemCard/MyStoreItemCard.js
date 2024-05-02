@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { FaTrash } from "react-icons/fa";
-import EditListingModal from '../EditListingModal';
+import EditListingModal from '../Modals/EditListingModal';
+import DeleteListingModal from '../Modals/DeleteListingModal';
 
 export default function MyStoreItemCard({ listing }) {
 
@@ -110,7 +110,7 @@ export default function MyStoreItemCard({ listing }) {
             <div className='flex flex-col'>
                 <div className='flex gap-6'>
                     <h3>Listed on {formatCreatedAt(listing.createdAt)}</h3>
-                    <FaTrash size={28} />
+                    <DeleteListingModal id={listing._id} />
                 </div>
                 <div className="flex items-center mt-auto">
                     {listing.sold ? (
