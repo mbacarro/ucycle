@@ -72,19 +72,20 @@ const Login = async (req, res, next) => {
 // GET profile information
 const getProfile = async (req, res) => {
     try {
-        const { username, id } = req.user || {};
+        const loggedInUserId = req.user.id;
+
     
-        if (!username) {
+        if (!loggedInUserId) {
             return res.status(401).json({ error: 'User is not authenticated' });
         }
     
-        const userProfile = await User.findOne({ username }).select('username email');
+        const userProfile = await User.findById(loggedInUserId).select('username email');
     
         if (!userProfile) {
             return res.status(404).json({ error: 'User not found' });
         }
     
-        const userListings = await Listing.find({ sellerID: username });
+        const userListings = await Listing.find({ sellerID: loggedInUserId });
         const listingsWithImageUrl = await Promise.all(userListings.map(async (listing) => {
             listing = listing.toObject(); // Convert to plain JavaScript object to avoid Mongoose schema limitations
             listing.imageUrl = await getObjectSignedUrl(listing.listingPhoto);
@@ -95,7 +96,7 @@ const getProfile = async (req, res) => {
             success: true, 
             username: userProfile.username,
             email: userProfile.email ,
-            id,
+            id: loggedInUserId,
             listings: listingsWithImageUrl,
         });
     } catch (error) {

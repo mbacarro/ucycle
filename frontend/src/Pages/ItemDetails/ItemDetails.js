@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import NavBar from '../../Components/Navbar/Navbar';
 import SchoolIcon from '../../Images/SchoolIcon.svg'
@@ -10,8 +11,10 @@ import Breadcrumbs from '../../Components/Breadcrumbs/Breadcrumbs';
 
 export default function ItemDetails() {
     const { itemId } = useParams()
+    const navigate = useNavigate()
 
     const [listing, setListing] = useState(null)
+    const [seller, setSeller] = useState(null)
 
     useEffect(() => {
         const fetchListing = async () => {
@@ -26,6 +29,20 @@ export default function ItemDetails() {
         fetchListing()
     }, [])
 
+    useEffect(() => {
+        if (!listing) return
+        const fetchSeller = async () => {
+            const response = await fetch('/api/listings/seller/' + listing.sellerID)
+            const json = await response.json()
+
+            if (response.ok) {
+                setSeller(json)
+            }
+        }
+
+        fetchSeller()
+    }, [listing])
+
     if (!listing) {
         return (
             <>
@@ -36,6 +53,32 @@ export default function ItemDetails() {
 
 
         )
+    }
+
+    const messageAskingPrice = async () => {
+        const listingId  = listing._id
+        const message = `Hi, I'm interested in your item. I would like to buy for $${listing.price}?`
+        const receiverId = listing.sellerID
+
+        try {
+            const response = await fetch('/api/messages/send/new', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message, listingId, receiverId })
+            })
+
+            if (!response.ok) {
+                throw new Error('Failed to send message')
+            }
+            alert('Message sent successfully')
+            navigate('/inbox')
+        }
+        catch (error) {
+            alert('Failed to send message: ', error.message)
+        }
+        
     }
 
 
@@ -72,7 +115,8 @@ export default function ItemDetails() {
                                 <div className='w-8 h-8 rounded-full'></div>
                             </div> */}
                             <div className='flex gap-3'>
-                                <button 
+                                <button
+                                    onClick={() => messageAskingPrice()} 
                                     className="px-10 py-2 text-lg font-semibold text-center text-white border rounded h-fit w-fit bg-violet-700 hover:bg-violet-800"
                                 >
                                     Buy for ${listing.price}
@@ -138,7 +182,7 @@ export default function ItemDetails() {
                                     }
                                 />
                                 <div className='flex flex-col'>
-                                    <h3 className='text-lg font-semibold'>{listing.sellerID}</h3>
+                                    <h3 className='text-lg font-semibold'>{seller && seller.username}</h3>
                                     <div>Rating Placeholder</div>
                                 </div>
                             </div>

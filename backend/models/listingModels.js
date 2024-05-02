@@ -46,8 +46,9 @@ const listingSchema = new Schema({
         default: null
     },
     sellerID: {
-        type: String,
-        required: true
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
     },
     sold: {
         type: Boolean,

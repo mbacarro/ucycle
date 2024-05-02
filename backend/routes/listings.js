@@ -11,7 +11,8 @@ const {
     getListing,
     deleteListing,
     updateListing,
-    getCategory
+    getCategory,
+    getListingSeller
 } = require("../controllers/listingController.js")
 
 const router = express.Router()
@@ -39,5 +40,8 @@ router.delete('/:id', deleteListing)
 
 // UPDATE an listing
 router.patch('/:id', updateListing)
+
+// GET seller Information
+router.get('/seller/:id', getListingSeller)
 
 module.exports = router

@@ -1,5 +1,6 @@
 const Listing = require("../models/listingModels")
 const Conversation = require('../models/conversationModel.js')
+const User = require("../models/userModels")
 
 const mongoose = require("mongoose")
 const { v4: uuidv4 } = require('uuid');
@@ -99,7 +100,7 @@ const createListing = async (req, res) => {
 
     const listingPhotoFile = req.file
 
-    const { username } = req.user || {};
+    const loggedInUser = req.user.id;
 
 
     // console.log("req.body ", req.body)
@@ -126,7 +127,7 @@ const createListing = async (req, res) => {
             otherLocationNotes,
             paymentMethod: parsedPaymentMethod, 
             otherPaymentNotes,
-            sellerID: username,
+            sellerID: loggedInUser, 
             listingPhoto: imageName
         })
         res.status(200).json(listing)
@@ -193,6 +194,29 @@ const updateListing = async (req, res) => {
     }
 };
 
+const getListingSeller = async (req, res) => { 
+
+    try {
+        const { id } = req.params;
+        console.log(id);
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).json({ error: 'Invalid ID' });
+        }
+
+        const seller = await User.findById(id).select('username email');
+        if (!seller) {
+            return res.status(404).json({ error: 'Seller not found' });
+        }
+
+        res.status(200).json(seller);
+    } catch (error) {
+        console.error(error); // Log the error for debugging
+        res.status(400).json({ error: "Error with query" });
+    }
+}
+
+
 
 module.exports = {
     createListing, 
@@ -201,5 +225,6 @@ module.exports = {
     getListing,
     deleteListing,
     updateListing,
-    getCategory
+    getCategory,
+    getListingSeller
 }
