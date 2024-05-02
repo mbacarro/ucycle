@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import { Modal } from "flowbite-react";
 import { FaTrash } from "react-icons/fa";
-import { useNavigate } from 'react-router-dom';
 
 const DeleteListingModal = ({id}) => { 
     const [openModal, setOpenModal] = useState(false);
-    const navigate = useNavigate();
-
 
     const deleteListing = async (id) => { 
         try {
@@ -24,14 +21,16 @@ const DeleteListingModal = ({id}) => {
             console.log(`Item ${id} deleted`);
 
             setOpenModal(false);
-            navigate('/account/my-store');
+            window.location.reload();
+
 
         } catch (error) {
             alert('Error deleting item: ', error.message);
             console.error('Error deleting item:', error);
 
             setOpenModal(false);
-            navigate('/account/my-store');
+            window.location.reload();
+
         }
     }
 
