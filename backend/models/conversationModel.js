@@ -21,7 +21,6 @@ const conversationSchema = new Schema(
         listing: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Listing",
-            required: true,
         },
 	},
 	{ timestamps: true }

@@ -1,4 +1,6 @@
 const Listing = require("../models/listingModels")
+const Conversation = require('../models/conversationModel.js')
+
 const mongoose = require("mongoose")
 const { v4: uuidv4 } = require('uuid');
 
@@ -150,6 +152,13 @@ const deleteListing = async (req, res) => {
         if (!listingFromID) {
             return res.status(404).json({ error: 'Listing not found' });
         }
+
+        // Delete conversations related to the deleted listing
+        await Conversation.updateMany(
+            { listing: id },
+            { $set: { listing: null } }
+        );
+
 
         res.status(200).json(listingFromID);
     } catch (error) {

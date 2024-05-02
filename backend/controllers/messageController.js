@@ -109,9 +109,13 @@ const getConversations = async (req, res) => {
 			// Find the most recent message
 			const mostRecentMessage = conversation.messages[conversation.messages.length - 1];
 
-			// Extract the listing id and name
-			const listingId = conversation.listing._id;
-			const listingName = conversation.listing.name;
+			// Extract the listing id and name if the listing field exists
+			let listingId = null;
+			let listingName = null;
+			if (conversation.listing) {
+				listingId = conversation.listing._id;
+				listingName = conversation.listing.name;
+			}
 
 			return {
 				conversationsId,
