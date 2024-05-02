@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { FaTrash } from "react-icons/fa";
+import EditListingModal from '../EditListingModal';
 
 export default function MyStoreItemCard({ listing }) {
 
@@ -97,9 +98,10 @@ export default function MyStoreItemCard({ listing }) {
                             >
                                 Mark as sold
                             </button>
-                            <button className='w-40 px-8 py-1 rounded bg-zinc-200'>
+                            {/* <button className='w-40 px-8 py-1 rounded bg-zinc-200'>
                                 Edit Listing
-                            </button>
+                            </button> */}
+                            <EditListingModal listingData={listing} />
                         </>
                     }
                 </div>
