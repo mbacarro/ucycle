@@ -80,27 +80,25 @@ export default function MyStoreItemCard({ listing }) {
                     {listing.sold ?
                         <>
                             <button 
-                                className='w-40 px-8 py-1 rounded bg-zinc-200'
+                                className='w-full px-2 py-1 rounded bg-zinc-200'
                                 onClick={() => handleRelistItem(listing._id)}
                             >
                                 Relist Item  
                             </button>
                             {/* Placehodler button to maintain layout*/}
-                            <button className='invisible w-40 px-8 py-1 rounded bg-zinc-200'>
+                            <button className='invisible w-full py-1 rounded bg-zinc-200'>
                                 Edit Listing
                             </button>
                         </>
                         :
                         <>
                             <button 
-                                className='w-40 px-8 py-1 rounded bg-zinc-200'
+                                className='w-full px-2 py-1 rounded bg-zinc-200'
                                 onClick={() => handleMarkAsSold(listing._id)}
                             >
                                 Mark as sold
                             </button>
-                            {/* <button className='w-40 px-8 py-1 rounded bg-zinc-200'>
-                                Edit Listing
-                            </button> */}
+
                             <EditListingModal listingData={listing} />
                         </>
                     }

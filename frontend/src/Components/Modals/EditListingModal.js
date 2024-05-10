@@ -146,7 +146,7 @@ const EditListingModal = ({ listingData }) => {
     return (
         <>
             <button 
-                className='w-40 px-8 py-1 rounded bg-zinc-200'
+                className='w-full px-2 py-1 rounded bg-zinc-200'
                 onClick={() => setOpenModal(true)}
             >
                 Edit Listing

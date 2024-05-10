@@ -92,21 +92,25 @@ export default function MyStore(props) {
                         </div>
                         
 
-                        <div className='mb-10 ml-auto'>
-                            <select
-                                className="w-48 h-10 px-2 text-lg text-black border border-black rounded"
-                                value={sortBy}
-                                onChange={(e) => setSortBy(e.target.value)}
-                            >
-                                <option value="default">Sort By</option>
-                                <option value="priceAsc">Price: Low to High</option>
-                                <option value="priceDesc">Price: High to Low</option>
-                                <option value="nameAsc">Name: A to Z</option>
-                                <option value="nameDesc">Name: Z to A</option>
-                            </select>
-                        </div>
 
-                        <div className='flex flex-col gap-8'>    
+                        <div className='flex flex-col gap-8'>
+                            {!(listings.length == 0) ? 
+                                <div className='mb-10 ml-auto'>
+                                    <select
+                                        className="w-48 h-10 px-2 text-lg text-black border border-black rounded"
+                                        value={sortBy}
+                                        onChange={(e) => setSortBy(e.target.value)}
+                                    >
+                                        <option value="default">Sort By</option>
+                                        <option value="priceAsc">Price: Low to High</option>
+                                        <option value="priceDesc">Price: High to Low</option>
+                                        <option value="nameAsc">Name: A to Z</option>
+                                        <option value="nameDesc">Name: Z to A</option>
+                                    </select>
+                                </div> 
+                                :
+                                <p>Add Items</p>
+                            }    
                             {profileData && listings.map((listing) => (
                                 <MyStoreItemCard id={listing._id} listing={listing} />
                             ))}

@@ -75,7 +75,11 @@ export default function Login(props) {
                     <form onSubmit={handleSubmit} className="flex flex-col flex-grow w-full">
                         {/* */ }
                         <div className="mb-4">
-                            <label htmlFor="email" className="block mb-4 text-lg font-medium text-gray-700">UW Email</label>
+                            <label 
+                                htmlFor="email" 
+                                className="block mb-4 text-lg font-medium text-gray-700">
+                            UW Email
+                            </label>
                             <input
                                 type="email"
                                 name="email"
@@ -86,7 +90,11 @@ export default function Login(props) {
                             />
                         </div>
                         <div className="mb-4">
-                            <label htmlFor="password" className="block mb-4 text-lg font-medium text-gray-700">Password</label>
+                            <label 
+                                htmlFor="password" 
+                                className="block mb-4 text-lg font-medium text-gray-700">
+                            Password
+                            </label>
                             <input
                                 type="password"
                                 name="password"
@@ -96,7 +104,9 @@ export default function Login(props) {
                                 className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm"
                             />
                         </div>
-                        <button type="submit" className="w-full px-4 py-2 mt-auto font-bold text-white rounded bg-violet-700 hover:bg-violet-800">
+                        <button 
+                            type="submit" 
+                            className="w-full px-4 py-2 mt-auto font-bold text-white rounded bg-violet-700 hover:bg-violet-800">
                             Login
                         </button>
                         <p className="block mt-4 text-sm">
