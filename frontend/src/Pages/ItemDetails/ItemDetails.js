@@ -8,6 +8,7 @@ import BuildingIcon from '../../Images/BuildingIcon.svg'
 import BoxIcon from '../../Images/BoxIcon.svg'
 
 import Breadcrumbs from '../../Components/Breadcrumbs/Breadcrumbs';
+import MakeOfferModal from '../../Components/Modals/MakeOfferModal';
 
 export default function ItemDetails() {
     const { itemId } = useParams()
@@ -121,11 +122,11 @@ export default function ItemDetails() {
                                 >
                                     Buy for ${listing.price}
                                 </button>
-                                <button 
-                                    className="px-10 py-2 text-lg font-semibold text-center border rounded border-violet-700 text-violet-700 h-fit w-fit"
-                                >
-                                    Make an offer
-                                </button>
+                                <MakeOfferModal 
+                                    listingId={listing._id}
+                                    price={listing.price}
+                                    receiverId={listing.sellerID}
+                                />
                             </div>
                         </div>
                         
