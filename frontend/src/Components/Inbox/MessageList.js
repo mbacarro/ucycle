@@ -25,7 +25,8 @@ const MessageList = () => {
                     throw new Error(data.error);
                 }   
                 setMessages(data);
-                console.log("messages: ", messages);  
+                console.log("messages: ", messages); 
+                console.log("selected convo: ", selectedConversation)
             } catch (error) {
                 console.log('Error fetching messages:', error.message);
             }

@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import NavBar from '../../Components/Navbar/Navbar';
 import ConversationList from '../../Components/Inbox/ConversationList';
 import MessageList from '../../Components/Inbox/MessageList';
 import MessageInput from '../../Components/Inbox/MessageInput';
+import ConversationItem from '../../Components/Inbox/ConversationItem';
 
 import useConversation from '../../Zustand/useConversation';
 
@@ -25,14 +26,21 @@ export default function Inbox(props) {
                     <ConversationList />
                 </div>
 
-                <div className="col-span-2 overflow-auto border-gray-300 ">
+                <div className="flex flex-col col-span-2 overflow-auto border-gray-300">
                     {!selectedConversation ? (
                         <NoChatSelected />
                     ) : (
                         <>
                             {/* Heading */}
                             <div className='flex items-center justify-center gap-3 my-6'>
-                                <div className="w-[100px] h-[100px] rounded-full bg-slate-400" />
+                                <div className="w-24 h-24 rounded-full " >
+                                    <img
+                                        alt='General Profile Icon'
+                                        src={
+                                            "https://cdn0.iconfinder.com/data/icons/communication-line-10/24/account_profile_user_contact_person_avatar_placeholder-512.png"
+                                        }
+                                    />
+                                </div>
                                 <h2 className='text-lg font-semibold'>{selectedConversation.otherParticipantUsername}</h2>
                                 <button className="w-40 h-10 px-5 py-2 text-base font-medium text-center text-white rounded bg-violet-700 hover:bg-violet-800">
                                     Visit Profile {/* Wrap in Link later*/}
@@ -49,7 +57,15 @@ export default function Inbox(props) {
 
                 </div>
 
-                <div className="h-screen col-span-1 border-l border-gray-300">Right Sidebar</div>
+                {/* Right Side Bar */}
+                <div className="h-screen col-span-1 border-l border-gray-300">
+                    {(!selectedConversation)  ? (
+                        <></>
+                    ) : ( 
+                        <ConversationItem />
+                    )}
+                
+                </div>
             </div>
 
 

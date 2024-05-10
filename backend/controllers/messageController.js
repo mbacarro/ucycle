@@ -15,11 +15,14 @@ const sendMessage = async (req, res) => {
 		const { conversationId } = req.params;
 		const loggedInUser = req.user.id;
 
-		// Check if the listing exists
-		const listing = await Listing.findById(listingId);
-		if (!listing) {
-			return res.status(404).json({ error: 'Listing not found' });
+		if (listingId != null) {
+			// Check if the listing exists
+			const listing = await Listing.findById(listingId);
+			if (!listing) {
+				return res.status(404).json({ error: 'Listing not found' });
+			}
 		}
+
 	
 		// Check if receiving user exists
 		const recievingUser = await User.findById(receiverId);
@@ -97,6 +100,8 @@ const getConversations = async (req, res) => {
 		const conversations = await Conversation.find({ participants: loggedInUser })
 			.populate("participants messages listing")
 			.sort({ updatedAt: -1 });
+
+		console.log(conversations)
 
 		// Transform the conversations array to include only the required fields
 		const transformedConversations = conversations.map(conversation => {

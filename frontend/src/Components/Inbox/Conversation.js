@@ -22,7 +22,14 @@ export default function Conversation({ conversationInfo }) {
                     console.log(selectedConversation)}}
             
             >
-                <div className="w-16 h-16 rounded-full bg-slate-400"/>
+                <div className="w-16 h-16 rounded-full"> 
+                    <img
+                            alt='General Profile Icon'
+                            src={
+                                "https://cdn0.iconfinder.com/data/icons/communication-line-10/24/account_profile_user_contact_person_avatar_placeholder-512.png"
+                            }
+                        />
+                </div>
 
                 <div className='flex flex-col items-start gap-2 ml-6'>
                     <p className="text-lg font-medium text-black">{otherParticipantUsername}</p>

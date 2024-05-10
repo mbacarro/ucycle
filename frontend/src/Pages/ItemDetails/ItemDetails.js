@@ -57,7 +57,7 @@ export default function ItemDetails() {
 
     const messageAskingPrice = async () => {
         const listingId  = listing._id
-        const message = `Hi, I'm interested in your item. I would like to buy for $${listing.price}?`
+        const message = `Hi, I'm interested in your item. I would like to buy for $${listing.price}.`
         const receiverId = listing.sellerID
 
         try {

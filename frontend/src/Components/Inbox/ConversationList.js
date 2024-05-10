@@ -27,14 +27,6 @@ export default function ConversationList() {
                     conversationInfo = {conversation}
                 />
             ))}
-			{/* <Conversation />
-			<Conversation />
-			<Conversation />
-			<Conversation />
-			<Conversation />
-			<Conversation />
-			<Conversation /> */}
-
 		</div>
 	);
 };
