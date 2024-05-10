@@ -12,7 +12,6 @@ import Category from '../Pages/Category/Category.js';
 import ItemDetails from '../Pages/ItemDetails/ItemDetails.js';
 import MyStore from '../Pages/Account/MyStore.js';
 import Liked from '../Pages/Account/Liked.js';
-import Settings from '../Pages/Account/Settings.js';
 import Register from '../Pages/Register/Register.js';
 import Login from '../Pages/Login/Login.js';
 
@@ -27,7 +26,6 @@ function App() {
       <Route path="/account" element={<Profile />} />
       <Route path="/account/my-store" element={<MyStore />} />
       <Route path="/account/liked" element={<Liked />} />
-      <Route path="/account/settings" element={<Settings />} />
 
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />

@@ -63,6 +63,7 @@ export default function NavBar(props) {
                 Cookies.remove('user', { path: '/', domain: 'localhost'})
                 alert("Successfully Logged Out")
                 navigate('/');
+                window.location.reload();
             }
             } catch (error) {
                 console.error('Error logging out:', error);
@@ -98,7 +99,6 @@ export default function NavBar(props) {
                                                                 <Link to='/account' className='inline-block mb-2 font-medium text-gray-700 cursor-pointer whitespace-nowrap hover:bg-gray-100 hover:text-gray-900'>Profile</Link>
                                                                 <Link to='/account/my-store' className='inline-block mb-2 font-medium text-gray-700 cursor-pointer whitespace-nowrap hover:bg-gray-100 hover:text-gray-900'>My Store</Link>
                                                                 <Link to='/account/liked' className='inline-block mb-2 font-medium text-gray-700 cursor-pointer whitespace-nowrap hover:bg-gray-100 hover:text-gray-900'>Liked</Link>
-                                                                <Link to='/account/settings' className='inline-block mb-2 font-medium text-gray-700 cursor-pointer whitespace-nowrap hover:bg-gray-100 hover:text-gray-900'>Settings</Link>
                                                                 <button onClick={handleLogout} className='inline-block mb-2 font-medium text-gray-700 cursor-pointer whitespace-nowrap hover:bg-gray-100 hover:text-gray-900'>Log Out</button>
                                                                 
                                                             </div>
