@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+
+import Cookies from 'js-cookie'
+import { Link, useNavigate } from 'react-router-dom';
 
 import NavBar from '../../Components/Navbar/Navbar';
 import Breadcrumbs from '../../Components/Breadcrumbs/Breadcrumbs';
@@ -9,6 +11,8 @@ import MyStoreItemCard from '../../Components/ItemCard/MyStoreItemCard';
 export default function MyStore(props) {
     const [profileData, setProfileData] = useState(null);
     const [listings, setListings] = useState([])
+    const navigate = useNavigate();
+
 
 
     useEffect(() => {
@@ -55,6 +59,29 @@ export default function MyStore(props) {
         setListings(sorted);
     }, [sortBy]);
     
+
+    const handleLogout = async () => {
+        try {
+            const response = await fetch('http://localhost:4000/api/auth/logout', {
+                method: 'POST',
+                credentials: 'include', // Include cookies in the request
+            });
+    
+
+            const data = await response.json();
+            // If the logout was successful, clear the cookie on the frontend
+            if (data.success) {
+                Cookies.remove('user', { path: '/', domain: 'localhost'})
+                alert("Successfully Logged Out")
+                navigate('/');
+                window.location.reload();
+            }
+            } catch (error) {
+                console.error('Error logging out:', error);
+            }
+    };
+
+    
     return (
         <>
             <NavBar />
@@ -67,13 +94,14 @@ export default function MyStore(props) {
                         <h1 className='text-3xl font-bold'>My Store</h1>
                         <Link to='/account' className='my-4 text-lg font-medium text-neutral-600 hover:bg-gray-100 hover:text-gray-900'>Profile</Link>
                         <Link to='/account/liked' className='my-4 text-lg font-medium text-neutral-600 hover:bg-gray-100 hover:text-gray-900'>Liked</Link>
-                        <button className='my-4 text-lg font-medium text-left text-neutral-600 hover:bg-gray-100 hover:text-gray-900'>Log Out</button>
+                        <button onClick={handleLogout}className='my-4 text-lg font-medium text-left text-neutral-600 hover:bg-gray-100 hover:text-gray-900'>Log Out</button>
+
                     </div>
                     <div className='w-3/4 h-screen'>
                         <div>
                             {profileData && (
                                 <>
-                                    <div class="flex gap-12 mb-6">
+                                    <div class="flex gap-12 mb-6 items-center">
                                         <img
                                             className='object-cover w-40 h-40 rounded-full'
                                             alt='Tailwind CSS chat bubble component'
@@ -83,7 +111,6 @@ export default function MyStore(props) {
                                         />
                                         <div class="text-neutral-500 text-base font-medium flex flex-col gap-2">
                                             <h1 className='text-3xl font-bold text-black'>{profileData.username}</h1>
-                                            <p>X sold </p>
                                         </div>
 
                                     </div>
@@ -109,7 +136,14 @@ export default function MyStore(props) {
                                     </select>
                                 </div> 
                                 :
-                                <p>Add Items</p>
+                                <div className='flex flex-col items-center justify-center gap-10'>
+                                    <p> Oops! Looks like you haven't listed any items! Click the button below to start selling items!</p>
+                                    <Link to='/sell'>
+                                        <button className="px-4 py-2 text-xl text-center text-white rounded bg-violet-700 hover:bg-violet-800">
+                                            Start Selling!
+                                        </button>
+                                    </Link>
+                                </div>
                             }    
                             {profileData && listings.map((listing) => (
                                 <MyStoreItemCard id={listing._id} listing={listing} />

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie'
+import { Link, useNavigate } from 'react-router-dom';
+
 
 
 import NavBar from '../../Components/Navbar/Navbar';
@@ -9,6 +11,8 @@ import ItemCard from '../../Components/ItemCard/ItemCard';
 
 export default function Profile(props) {
     const [profileData, setProfileData] = useState(null);
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         const fetchProfileData = async () => {
@@ -32,6 +36,27 @@ export default function Profile(props) {
         fetchProfileData();
     }, []);
     
+    const handleLogout = async () => {
+        try {
+            const response = await fetch('http://localhost:4000/api/auth/logout', {
+                method: 'POST',
+                credentials: 'include', // Include cookies in the request
+            });
+    
+
+            const data = await response.json();
+            // If the logout was successful, clear the cookie on the frontend
+            if (data.success) {
+                Cookies.remove('user', { path: '/', domain: 'localhost'})
+                alert("Successfully Logged Out")
+                navigate('/');
+                window.location.reload();
+            }
+            } catch (error) {
+                console.error('Error logging out:', error);
+            }
+    };
+    
     return (
         <>
             <NavBar />
@@ -44,14 +69,16 @@ export default function Profile(props) {
                         <h1 className='text-3xl font-bold'>Profile</h1>
                         <Link to='/account/my-store'className='my-4 text-lg font-medium text-neutral-600 hover:bg-gray-100 hover:text-gray-900'>My Store</Link>
                         <Link to='/account/liked' className='my-4 text-lg font-medium text-neutral-600 hover:bg-gray-100 hover:text-gray-900'>Liked</Link>
-                        <button className='my-4 text-lg font-medium text-left text-neutral-600 hover:bg-gray-100 hover:text-gray-900'>Log Out</button>
+                        <button onClick={handleLogout}className='my-4 text-lg font-medium text-left text-neutral-600 hover:bg-gray-100 hover:text-gray-900'>Log Out</button>
                     </div>
-                    <div className='w-3/4 h-screen border border-black'>
+                    <div className='w-3/4 h-fit'>
 
 
                         <div>
                             {profileData ? (
                                 <>
+
+                                    <div class="flex gap-12 my-6">
                                     <img
                                         className='object-cover w-40 h-40 rounded-full'
                                         alt='Tailwind CSS chat bubble component'
@@ -59,23 +86,28 @@ export default function Profile(props) {
                                             "https://cdn0.iconfinder.com/data/icons/communication-line-10/24/account_profile_user_contact_person_avatar_placeholder-512.png"
                                         }
                                     />
-                                    <div class="flex gap-12 mb-6">
-                                        <div class="text-neutral-500 text-base font-medium flex flex-col gap-2">
-                                            <p>Username: <span id="condition"></span></p>
-                                            <p>Email: <span id="category"></span></p>
+                                        <div class="text-black text-base font-medium flex flex-col gap-5">
+                                            <p>Username: </p>
+                                            <p>Email:</p>
+                                            <p>First Name:</p>
+                                            <p>Last Name:</p>
+                                            <p>Student Number:</p>
+
                                         </div>
-                                        <div className='flex flex-col gap-2 text-base font-normal text-black'>
+                                        <div className='flex flex-col gap-5 text-base font-normal text-neutral-700'>
                                             <p> {profileData.username}</p>
                                             <p> {profileData.email}</p>
+                                            <p> {profileData.firstName}</p>
+                                            <p> {profileData.lastName}</p>
+                                            <p> {profileData.studentNumber}</p>
                                         </div>
                                     </div>
 
-                                    {/* <h2>Your Listings:</h2>
-                                    <ul>
-                                        {profileData.listings.map((listing) => (
-                                            <ItemCard id={listing._id} listing={listing} />
-                                        ))}
-                                    </ul> */}
+                                    <h2 className='mt-12 mb-5 font-medium text-black'>Bio:</h2>
+                                    <p className='w-full rounded text-neutral-700'>
+                                        {profileData.biography}
+                                    </p>
+
                                 </>
                             ) : (
                                 <p>Loading profile...</p>
