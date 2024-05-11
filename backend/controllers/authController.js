@@ -8,17 +8,16 @@ const bcrypt = require("bcryptjs");
 // POST signup a new user
 const Signup = async (req, res, next) => {
     try {
-        console.log(req.body)
-        const { email, password, username } = req.body;
-        
+        const { email, password, username, firstName, lastName, studentNumber, grade, age, biography } = req.body;
+
         const existingEmail = await User.findOne({ email });
         const existingUsername = await User.findOne({ username });
 
         if (existingEmail || existingUsername) {
-            return res.json({ message: "User already exists" , success: false});
+            return res.json({ message: "User already exists", success: false });
         }
 
-        const user = await User.create({ email, password, username });
+        const user = await User.create({ email, password, username, firstName, lastName, studentNumber, grade, age, biography });
 
         const token = createSecretToken(user._id);
         res.cookie("user", token, {
@@ -31,9 +30,9 @@ const Signup = async (req, res, next) => {
         next();
     } catch (error) {
         res.status(500).json({ error: error.message });
-
     }
 };
+
 
 // POST login a registered user
 const Login = async (req, res, next) => {
@@ -74,28 +73,33 @@ const getProfile = async (req, res) => {
     try {
         const loggedInUserId = req.user.id;
 
-    
         if (!loggedInUserId) {
             return res.status(401).json({ error: 'User is not authenticated' });
         }
-    
-        const userProfile = await User.findById(loggedInUserId).select('username email');
-    
+
+        const userProfile = await User.findById(loggedInUserId).select('username email firstName lastName studentNumber grade age biography');
+
         if (!userProfile) {
             return res.status(404).json({ error: 'User not found' });
         }
-    
+
         const userListings = await Listing.find({ sellerID: loggedInUserId });
         const listingsWithImageUrl = await Promise.all(userListings.map(async (listing) => {
             listing = listing.toObject(); // Convert to plain JavaScript object to avoid Mongoose schema limitations
             listing.imageUrl = await getObjectSignedUrl(listing.listingPhoto);
             return listing;
         }));
-    
+
         res.status(200).json({
-            success: true, 
+            success: true,
             username: userProfile.username,
-            email: userProfile.email ,
+            email: userProfile.email,
+            firstName: userProfile.firstName,
+            lastName: userProfile.lastName,
+            studentNumber: userProfile.studentNumber,
+            grade: userProfile.grade,
+            age: userProfile.age,
+            biography: userProfile.biography,
             id: loggedInUserId,
             listings: listingsWithImageUrl,
         });

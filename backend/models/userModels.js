@@ -11,6 +11,35 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "Your username is required"],
     },
+    firstName: {
+        type: String,
+        required: [true, "Your first name is required"],
+    },
+    lastName: {
+        type: String,
+        required: [true, "Your last name is required"],
+    },
+    lastName: {
+        type: String,
+        required: [true, "Your last name is required"],
+    },
+    studentNumber: {
+        type: Number,
+        required: [true, "Your student number is required"],
+    },
+    grade: {
+        type: String,
+        required: [true, "Your grade is required"],
+    },
+    age: {
+        type: String,
+        required: [true, "Your age is required"],
+    },
+    biography: {
+        type: String,
+        required: false,
+        default: '',
+    },
     password: {
         type: String,
         required: [true, "Your password is required"],
