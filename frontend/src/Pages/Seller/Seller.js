@@ -127,7 +127,7 @@ export default function Seller() {
                 </>
                 :
                 <div className='flex flex-col items-center justify-center gap-10'>
-                    <p> Oops! Looks like you haven't listed any items! Click the button below to start selling items!</p>
+                    <p> Oops! Looks like this seller doesn't have any available items!</p>
                 </div>
             }   
             
