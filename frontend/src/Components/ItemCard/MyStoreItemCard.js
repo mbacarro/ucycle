@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import EditListingModal from '../Modals/EditListingModal';
 import DeleteListingModal from '../Modals/DeleteListingModal';
 
-export default function MyStoreItemCard({ listing }) {
+export default function MyStoreItemCard({ listing, currentSold, onUpdateSuccess }) {
 
     const handleMarkAsSold = async (id) => {
         try {
-            const response = await fetch(`/api/listings/${id}`, {
+            const listingResponse = await fetch(`/api/listings/${id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
@@ -17,18 +17,34 @@ export default function MyStoreItemCard({ listing }) {
                     sold: true
                 })
             });
-            if (!response.ok) {
+            if (!listingResponse.ok) {
                 throw new Error('Failed to mark item as sold');
             }
+
+            const profileResponse = await fetch(`/api/auth/update`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    sold: currentSold + 1
+                })
+            });
+            if (!profileResponse.ok) {
+                throw new Error('Failed update sold on user profile');
+            }
+
+
             // Update the listing in your frontend state or trigger a re-fetch of listings
             alert('Item marked as sold');
             console.log(`Item ${id} marked as sold`);
-            window.location.reload();
+            onUpdateSuccess()
 
         } catch (error) {
             alert('Error marking item as sold: ', error.message);
             console.error('Error marking item as sold:', error);
-            window.location.reload();
+            onUpdateSuccess()
+
 
         }
     };
@@ -46,6 +62,19 @@ export default function MyStoreItemCard({ listing }) {
             });
             if (!response.ok) {
                 throw new Error('Failed to relist item');
+            }
+
+            const profileResponse = await fetch(`/api/auth/update`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    sold: currentSold - 1
+                })
+            });
+            if (!profileResponse.ok) {
+                throw new Error('Failed update sold on user profile');
             }
             // Update the listing in your frontend state or trigger a re-fetch of listings
             alert('Item relisted');

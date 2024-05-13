@@ -6,7 +6,8 @@ const {
     Signup,
     Login,
     getProfile,
-    Logout
+    Logout,
+    updateProfile
 } = require("../controllers/authController.js")
 
 const router = express.Router()
@@ -22,7 +23,10 @@ router.post('/logout', userVerification, Logout);
 
 // GET a registred user
 router.get('/profile', userVerification, getProfile);
+
 // UPDATE a registered user
+router.patch('/update', userVerification, updateProfile)
+
 
 
 module.exports = router;

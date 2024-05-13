@@ -119,9 +119,42 @@ const Logout = async (req, res) => {
     res.status(200).json({ message: 'User logged out successfully', success: true });
 };
 
+// UPDATE loggedin user
+const updateProfile = async (req, res) => {
+    try {
+    const loggedInUserId = req.user.id;
+
+    if (!loggedInUserId) {
+        return res.status(401).json({ error: 'User is not authenticated' });
+    }
+
+    const updatedFields = req.body;
+
+    // Remove fields that shouldn't be updated
+    delete updatedFields.password;
+    delete updatedFields._id;
+
+    const updatedUser = await User.findByIdAndUpdate(
+        loggedInUserId,
+        { $set: updatedFields },
+        { new: true }
+    );
+
+    if (!updatedUser) {
+        return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.status(200).json({ message: 'User profile updated successfully', user: updatedUser });
+    } catch (error) {
+    console.error('Error updating user profile:', error);
+    res.status(500).json({ error: 'Server error' });
+    }
+};
+
 module.exports = {
     Signup,
     Login,
     getProfile, 
-    Logout
+    Logout, 
+    updateProfile
 }

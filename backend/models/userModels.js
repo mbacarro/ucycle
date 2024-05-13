@@ -42,7 +42,6 @@ const userSchema = new mongoose.Schema({
     },
     sold: {
         type: Number,
-        required: true,
         default: 0,
     },
     location: {
@@ -52,6 +51,11 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, "Your password is required"],
+    },
+    liked: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Listing',
+        default: [],
     }
 }, {timestamps: true});
 

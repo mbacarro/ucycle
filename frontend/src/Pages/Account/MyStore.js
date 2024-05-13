@@ -13,29 +13,29 @@ export default function MyStore(props) {
     const [listings, setListings] = useState([])
     const navigate = useNavigate();
 
+    const fetchProfileData = async () => {
+        try {
+            const response = await fetch('/api/auth/profile', {
+                method: 'GET',
+                credentials: 'include', // Include cookies in the request
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch profile data');
+            }
+
+            const data = await response.json();
+            setProfileData(data);
+            setListings(data.listings)
+            console.log(listings)
+        } catch (error) {
+            console.error('Error fetching profile data:', error.message);
+        }
+    };
+
 
 
     useEffect(() => {
-        const fetchProfileData = async () => {
-            try {
-                const response = await fetch('/api/auth/profile', {
-                    method: 'GET',
-                    credentials: 'include', // Include cookies in the request
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to fetch profile data');
-                }
-
-                const data = await response.json();
-                setProfileData(data);
-                setListings(data.listings)
-                console.log(listings)
-            } catch (error) {
-                console.error('Error fetching profile data:', error.message);
-            }
-        };
-
         fetchProfileData();
     }, []);
 
@@ -149,7 +149,12 @@ export default function MyStore(props) {
                                 </div>
                             }    
                             {profileData && listings.map((listing) => (
-                                <MyStoreItemCard id={listing._id} listing={listing} />
+                                <MyStoreItemCard 
+                                    key={listing._id}
+                                    listing={listing} 
+                                    currentSold={profileData.sold}
+                                    onUpdateSuccess={fetchProfileData}
+                                />
                             ))}
                         </div>
 
