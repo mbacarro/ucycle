@@ -92,28 +92,23 @@ const createListing = async (req, res) => {
         category,
         subcategory,
         description, 
-        pickupLocations, 
-        otherLocationNotes,
+        onCampusLocations,
+        offCampusLocations,
         paymentMethod, 
         otherPaymentNotes
-    } = req.body 
+    } = req.body;
 
-    const listingPhotoFile = req.file
-
+    const listingPhotoFile = req.file;
     const loggedInUser = req.user.id;
 
+    const imageName = generateFileName().toString();
 
-    // console.log("req.body ", req.body)
-    // console.log("req.file ", req.file)
-
-
-    const imageName = generateFileName().toString()
-    // console.log(imageName)
-
-    await uploadFile(listingPhotoFile.buffer, imageName, listingPhotoFile.mimetype)
+    await uploadFile(listingPhotoFile.buffer, imageName, listingPhotoFile.mimetype);
 
     try {
-        const parsedPickupLocations = pickupLocations.includes(',') ? pickupLocations.split(',') : [pickupLocations];
+        const parsedOnCampusLocations = onCampusLocations.includes(',') ? onCampusLocations.split(',') : [onCampusLocations];
+        const parsedOffCampusLocations = offCampusLocations.includes(',') ? offCampusLocations.split(',') : [offCampusLocations];
+
         const parsedPaymentMethod = paymentMethod.includes(',') ? paymentMethod.split(',') : [paymentMethod];
 
         const listing = await Listing.create({
@@ -123,16 +118,16 @@ const createListing = async (req, res) => {
             category,
             subcategory,
             description, 
-            pickupLocations: parsedPickupLocations, 
-            otherLocationNotes,
+            onCampusLocations: parsedOnCampusLocations,
+            offCampusLocations: parsedOffCampusLocations,
             paymentMethod: parsedPaymentMethod, 
             otherPaymentNotes,
             sellerID: loggedInUser, 
             listingPhoto: imageName
         })
-        res.status(200).json(listing)
+        res.status(200).json(listing);
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(400).json({error: error.message});
     }
 }
 

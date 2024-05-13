@@ -16,6 +16,10 @@ export default function ItemDetails() {
 
     const [listing, setListing] = useState(null)
     const [seller, setSeller] = useState(null)
+    const [user, setUser] = useState(null)
+    const [viewingOwnListing, setViewingOwnListing] = useState(false)
+
+
 
     useEffect(() => {
         const fetchListing = async () => {
@@ -26,8 +30,17 @@ export default function ItemDetails() {
                 setListing(json)
             }
         }
+        const fetchUser = async () => {
+            const response = await fetch('/api/auth/profile')
+            const json = await response.json()
+
+            if (response.ok) {
+                setUser(json)
+            }
+        }
 
         fetchListing()
+        fetchUser()
     }, [])
 
     useEffect(() => {
@@ -43,6 +56,14 @@ export default function ItemDetails() {
 
         fetchSeller()
     }, [listing])
+
+    useEffect(() => {
+        if (user?.username == seller?.username) {
+            setViewingOwnListing(true)
+        } else {
+            setViewingOwnListing(false)
+        }
+    }, [user, listing, seller])
 
     if (!listing) {
         return (
@@ -96,12 +117,12 @@ export default function ItemDetails() {
                     {/* Item Images*/}
                     <div className='flex justify-center w-1/2 h-fit gap-9'>
                         {/* Image Options*/}
-                        <div className='flex flex-col gap-2'>
+                        {/* <div className='flex flex-col gap-2'>
                             <div className='w-24 h-24 border border-black'></div>
                             <div className='w-24 h-24 border border-black'></div>
                             <div className='w-24 h-24 border border-black'></div>
                             <div className='w-24 h-24 border border-black'></div>
-                        </div>
+                        </div> */}
                         {/* Image Preview*/}
                             <img src={listing.imageUrl} className='object-cover w-3/5 aspect-square'></img>
                     </div>
@@ -115,7 +136,10 @@ export default function ItemDetails() {
                                 <div className='w-8 h-8 rounded-full bg-slate-600'></div>
                                 <div className='w-8 h-8 rounded-full'></div>
                             </div> */}
-                            <div className='flex gap-3'>
+                            {viewingOwnListing ?
+                                <></>
+                                :
+                                <div className='flex gap-3'>
                                 <button
                                     onClick={() => messageAskingPrice()} 
                                     className="px-10 py-2 text-lg font-semibold text-center text-white border rounded h-fit w-fit bg-violet-700 hover:bg-violet-800"
@@ -127,7 +151,8 @@ export default function ItemDetails() {
                                     price={listing.price}
                                     receiverId={listing.sellerID}
                                 />
-                            </div>
+                            </div>}
+
                         </div>
                         
                         <hr className='my-8 border mx-2.5'/>
@@ -158,12 +183,12 @@ export default function ItemDetails() {
                                     <img src={SchoolIcon} alt="" />
                                     <h3 className='text-base'>Available for on-campus pickup</h3>
                                 </div>
-                                <li>{listing.pickupLocations.join(', ')}</li>
+                                <li>{listing.onCampusLocations.join(', ')}</li>
                                 <div className='flex gap-2.5'>
                                     <img src={BuildingIcon} alt="" />
                                     <h3 className='text-base'>Available for off-campus pickup</h3>
                                 </div>
-                                <li>{listing.pickupLocations.join(', ')}</li>
+                                <li>{listing.offCampusLocations.join(', ')}</li>
                                 <div className='flex gap-2.5'>
                                     <img src={BoxIcon} alt="" />
                                     <h3 className='text-base'>No refunds or returns</h3>

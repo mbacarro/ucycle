@@ -27,14 +27,13 @@ const listingSchema = new Schema({
         type: String,
         required: true
     },
-    pickupLocations: {
+    onCampusLocations: {
         type: [String],
         required: true
     },
-    otherLocationNotes: {
-        type: String,
-        required: false,
-        default: null
+    offCampusLocations: {
+        type: [String],
+        required: true
     },
     paymentMethod: {
         type: [String],
