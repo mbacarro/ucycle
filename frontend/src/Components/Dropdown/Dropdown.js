@@ -40,6 +40,19 @@ const Dropdown = (props) => {
                     <div className="bg-white rounded-md shadow-xs">
                         <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                             {props.options.map((option) => (
+
+                                props.category == "home goods" ? 
+                                <Link to={`/homegoods/${option}`}>
+                                    <div
+                                        key={option}
+                                        className="block px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100 hover:text-gray-900"
+                                        // onClick={() => handleOptionClick(option)}
+                                        role="menuitem"
+                                    >
+                                        {option}
+                                    </div>
+                                </Link>
+                                :
                                 <Link to={`/${props.category}/${option}`}>
                                     <div
                                         key={option}

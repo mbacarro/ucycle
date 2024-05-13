@@ -57,7 +57,7 @@ export default function ItemDetails() {
     }, [listing])
 
     useEffect(() => {
-        if ((user?.username == seller?.username) || !user.status) {
+        if ((user?.username == seller?.username) || user?.status === false) {
             setViewingOwnListing(true)
         } else {
             setViewingOwnListing(false)
@@ -213,7 +213,6 @@ export default function ItemDetails() {
                                     </div>
                                 </div>
                             </Link>
-                            <button className="w-2/3 px-10 py-2 text-base font-semibold text-center text-white rounded bg-violet-700 h-fit">Message seller</button>
                         </div>
                     </div>
                 </div>

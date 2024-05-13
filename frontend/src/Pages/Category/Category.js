@@ -10,24 +10,37 @@ import Breadcrumbs from '../../Components/Breadcrumbs/Breadcrumbs';
 
 const Category = () => {
     const { category, subcategory } = useParams();
+    console.log("cat: " + category);
+    console.log(subcategory);
+
+
     const navigate = useNavigate();
 
 
     // Check if subcategory is provided
     const hasSubcategory = subcategory !== undefined && subcategory !== '';
 
+
     const [listings, setListings] = useState([])
 
     // Get items and filters for the selected category
     useEffect(() => {
-
-        if(!(category in filters)) {
-            navigate('/');
-            return
+        if (category !== "homegoods") {
+            if(!(category in filters)) {
+                return
+            }
         }
 
+
         const fetchListings = async () => {
-            const response = await fetch('/api/listings/category/' + category.charAt(0).toUpperCase() + category.slice(1))
+            let response
+            if (category === "homegoods") {
+                response = await fetch('/api//listings/category/Home%20Goods')
+
+            }
+            else {
+                response = await fetch('/api/listings/category/' + category.charAt(0).toUpperCase() + category.slice(1))
+            }
             const json = await response.json()
 
             if (response.ok) {
@@ -42,8 +55,15 @@ const Category = () => {
         fetchListings()
     }, [category, subcategory])
 
-    const categoryFilters = filters[category] || [];
+    let categoryFilters
+    if (category === "homegoods") {
+        categoryFilters = filters["home goods"] || [];
 
+    } else {
+        categoryFilters = filters[category] || [];
+
+    }
+    
     const [sortBy, setSortBy] = useState('default');
 
     //Sort items based on the selected sort option
@@ -72,7 +92,8 @@ const Category = () => {
             <div className='flex flex-col gap-20 mx-40 mt-3'>
                 <div className='flex'>
                     <div className='w-1/4'>
-                        <h1 className='text-3xl font-bold text-black'>{category.charAt(0).toUpperCase() + category.slice(1)}</h1>
+                        <h1 className='text-3xl font-bold text-black'>{category === "homegoods" ? "Home Goods" : category.charAt(0).toUpperCase() + category.slice(1)}</h1>
+
                     </div>
                     <div className='flex flex-col w-3/4'>
                         <div className='ml-auto'>
