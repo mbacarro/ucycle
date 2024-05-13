@@ -8,7 +8,7 @@ export default function Breadcrumbs() {
     let currLink = ''
 
     const crumbs = location.pathname.split('/')
-        .filter(crumb => crumb !== '' && crumb !== 'category' && crumb !== 'item')
+        .filter(crumb => crumb !== '' && crumb !== 'category')
         .map((crumb, index, array) => {
             currLink += `/${crumb}`
 

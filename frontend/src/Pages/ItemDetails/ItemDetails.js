@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../../Components/Navbar/Navbar';
 import SchoolIcon from '../../Images/SchoolIcon.svg'
 import BuildingIcon from '../../Images/BuildingIcon.svg'
@@ -124,7 +123,7 @@ export default function ItemDetails() {
                             <div className='w-24 h-24 border border-black'></div>
                         </div> */}
                         {/* Image Preview*/}
-                            <img src={listing.imageUrl} className='object-cover w-3/5 aspect-square'></img>
+                            <img src={listing.imageUrl} className='object-cover w-4/5 aspect-square'></img>
                     </div>
                     {/* Item Details*/}
                     <div className='w-1/2 h-fit'>
@@ -199,21 +198,22 @@ export default function ItemDetails() {
                         {/* Seller Information*/}
                         <div className='mx-2.5 mb-2 '>
                             <h2 className='mb-4 text-lg font-semibold'>Seller Information</h2>
-                            <div className='flex gap-3 mx-2 my-9'>
-                                <img
-                                    className='object-cover rounded-full w-14 h-14'
-                                    alt='Tailwind CSS chat bubble component'
-                                    src={
-                                        "https://cdn0.iconfinder.com/data/icons/communication-line-10/24/account_profile_user_contact_person_avatar_placeholder-512.png"
-                                    }
-                                />
-                                <div className='flex flex-col'>
-                                    <h3 className='text-lg font-semibold'>{seller && seller.username}</h3>
-                                    <div>Rating Placeholder</div>
+                            <Link to={`/seller/${listing.sellerID}`}>
+                                <div className='flex gap-3 mx-2 my-9'>
+                                    <img
+                                        className='object-cover rounded-full w-14 h-14'
+                                        alt='Tailwind CSS chat bubble component'
+                                        src={
+                                            "https://cdn0.iconfinder.com/data/icons/communication-line-10/24/account_profile_user_contact_person_avatar_placeholder-512.png"
+                                        }
+                                    />
+                                    <div className='flex flex-col'>
+                                        <h3 className='text-lg font-semibold'>{seller && seller.username}</h3>
+                                        <div>Rating Placeholder</div>
+                                    </div>
                                 </div>
-                            </div>
+                            </Link>
                             <button className="w-2/3 px-10 py-2 text-base font-semibold text-center text-white rounded bg-violet-700 h-fit">Message seller</button>
-
                         </div>
                     </div>
                 </div>
@@ -222,10 +222,6 @@ export default function ItemDetails() {
                 <div>
 
                 </div>
-            </div>
-            <div className='mx-40 my-20'>
-                <h2 className='text-2xl font-bold my-7'>More items from {listing.sellerID}'s Shop</h2>
-                <p >Payment Methods: {listing.paymentMethod.join(', ')}</p>
             </div>
         </>
     );

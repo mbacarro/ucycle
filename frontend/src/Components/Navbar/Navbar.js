@@ -127,6 +127,7 @@ export default function NavBar(props) {
                     {Object.keys(filters).map((category) => (
                         <Dropdown
                             key={category}
+                            category={category}
                             buttonText={category.charAt(0).toUpperCase() + category.slice(1)}
                             options={filters[category]}
                         />

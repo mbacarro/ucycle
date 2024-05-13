@@ -199,7 +199,7 @@ const getListingSeller = async (req, res) => {
             return res.status(404).json({ error: 'Invalid ID' });
         }
 
-        const seller = await User.findById(id).select('username email firstName lastName studentNumber grade age biography location');
+        const seller = await User.findById(id).select('username email firstName lastName studentNumber grade age biography location sold');
         if (!seller) {
             return res.status(404).json({ error: 'Seller not found' });
         }
@@ -223,6 +223,7 @@ const getListingSeller = async (req, res) => {
             age: seller.age,
             biography: seller.biography,
             id,
+            sold: seller.sold,
             listings: listingsWithImageUrl,
         });
     } catch (error) {

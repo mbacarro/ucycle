@@ -14,6 +14,7 @@ import MyStore from '../Pages/Account/MyStore.js';
 import Liked from '../Pages/Account/Liked.js';
 import Register from '../Pages/Register/Register.js';
 import Login from '../Pages/Login/Login.js';
+import Seller from '../Pages/Seller/Seller.js';
 
 function App() {
   return (
@@ -34,6 +35,8 @@ function App() {
       <Route path="/sell" element={<CreateListing />} />
       <Route path="/:category/:subcategory?" element={<Category />} />
       <Route path="/item/:itemId" element={<ItemDetails />} />
+      <Route path="/seller/:sellerId" element={<Seller />} />
+
       <Route path="*" element={<Home />} />
     </Routes>
   );
