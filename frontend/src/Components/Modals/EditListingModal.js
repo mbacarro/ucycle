@@ -28,19 +28,19 @@ const EditListingModal = ({ listingData }) => {
         setSubCategory(e.target.value);
     };
 
-    // location logic
-    const [locationOptions, setLocationOptions] = useState(['Location 1', 'Location 2', 'Location 3', 'Location 4', 'Location 5'])
-    const [selectedLocations, setSelectedLocations] = useState(listingData.pickupLocations);
-    const [showOtherLocationNotes, setShowOtherLocationNotes] = useState(false);
-    const [otherLocationNotes, setOtherLocationNotes] = useState(listingData.otherLocationNotes);
+    // on campus location logic
+    const [onCampusOptions, setOnCampusOptons] = useState(["Red Square", "The HUB", "The Quad", "IMA"])
+    const [selectedOnCampusLocations, setSelectedOnCampusLocations] = useState(listingData.onCampusLocations);
 
-    const handleSelectedLocationChange = (location, isChecked) => {
+
+
+    const handleSelectedOnCampusLocationChange = (location, isChecked) => {
         if (!isChecked) {
-            setSelectedLocations((prevSelected) =>
+            setSelectedOnCampusLocations((prevSelected) =>
                 prevSelected.filter((item) => item !== location)
             );
         } else {
-            setSelectedLocations((prevSelected) =>
+            setSelectedOnCampusLocations((prevSelected) =>
                 prevSelected.includes(location)
                     ? prevSelected
                     : [...prevSelected, location]
@@ -48,28 +48,44 @@ const EditListingModal = ({ listingData }) => {
         }
     };
 
-    const handleLocationOptionChange = (index, value) => {
-        setSelectedLocations((prevSelected) =>
-            prevSelected.filter((location) => location !== locationOptions[index])
+    const handleOnCampusLocationOptionChange = (index, value) => {
+        setSelectedOnCampusLocations((prevSelected) =>
+            prevSelected.filter((location) => location !== onCampusOptions[index])
         );
-        setLocationOptions((prevOptions) =>
+        setOnCampusOptons((prevOptions) =>
             prevOptions.map((option, i) => (i === index ? value : option))
         );
     };
 
-    const handleOtherLocationNotesChange = (e) => {
-        setOtherLocationNotes(e.target.value);
-    };
+        // on campus location logic
+    const [offCampusOptions, setOffCampusOptions] = useState(["UDistrict Station", "UW Station", "Northgate", "UVillage"])
+    const [selectedOffCampusLocations, setSelectedOffCampusLocations] = useState(listingData.offCampusLocations);
 
-    const handleOtherLocationOptionChange = (e) => {
-        const isChecked = e.target.checked;
-        setShowOtherLocationNotes(isChecked);
+
+
+    const handleSelectedOffCampusLocationChange = (location, isChecked) => {
         if (!isChecked) {
-            setSelectedLocations(selectedLocations.filter((location) => location !== 'Other'));
-        } else if (!selectedLocations.includes('Other')) {
-            setSelectedLocations([...selectedLocations, 'Other']);
+            setSelectedOffCampusLocations((prevSelected) =>
+                prevSelected.filter((item) => item !== location)
+            );
+        } else {
+            setSelectedOffCampusLocations((prevSelected) =>
+                prevSelected.includes(location)
+                    ? prevSelected
+                    : [...prevSelected, location]
+            );
         }
     };
+
+    const handleOffCampusLocationOptionChange = (index, value) => {
+        setSelectedOffCampusLocations((prevSelected) =>
+            prevSelected.filter((location) => location !== offCampusOptions[index])
+        );
+        setOffCampusOptions((prevOptions) =>
+            prevOptions.map((option, i) => (i === index ? value : option))
+        );
+    };
+
 
     // payment logic
     const paymentOptions = ['Cash', 'Venmo', 'Zelle', 'Cashapp'];
@@ -105,8 +121,8 @@ const EditListingModal = ({ listingData }) => {
             subcategory: subCategory,
             condition: condition,
             description: description,
-            pickupLocations: selectedLocations,
-            otherLocationNotes: otherLocationNotes,
+            onCampusLocations: onCampusOptions,
+            offCampusLocations: offCampusOptions,
             paymentMethod: selectedOptions,
             otherPaymentNotes: otherNotes
         }
@@ -235,62 +251,77 @@ const EditListingModal = ({ listingData }) => {
                             onChange={(e) => setDescription(e.target.value)} 
                         />
 
-                        <fieldset>
-                            <legend className="block text-lg font-medium text-gray-900 mb-2.5 relative">
-                                Pickup locations
+                    <fieldset>
+                        
+                        <legend className="block text-lg font-medium text-gray-900 mb-2.5 relative">
+                            On Campus Pickup locations
+                            <input
+                                required
+                                id="pickup-locations"
+                                type="checkbox"
+                                value=""
+                                checked={selectedOnCampusLocations.length > 0}
+                                onChange={(e) => {
+                                    if (!e.target.checked) {
+                                        setSelectedOnCampusLocations([]);
+                                    }
+                                }}
+                                className="absolute top-0 left-0 opacity-0" // Hide the checkbox behind the legend
+                            />
+                        </legend>
+                        {onCampusOptions.map((location, index) => (
+                            <div key={index} className="flex items-center mb-4">
                                 <input
-                                    required
-                                    id="pickup-locations"
                                     type="checkbox"
-                                    value=""
-                                    checked={selectedLocations.length > 0}
-                                    onChange={(e) => {
-                                        if (!e.target.checked) {
-                                            setSelectedLocations([]);
-                                        }
-                                    }}
-                                    className="absolute top-0 left-0 opacity-0" // Hide the checkbox behind the legend
-                                />
-                            </legend>
-                            {locationOptions.map((location, index) => (
-                                <div key={index} className="flex items-center mb-4">
-                                    <input
-                                        type="checkbox"
-                                        checked={selectedLocations.includes(location)}
-                                        onChange={(e) => handleSelectedLocationChange(location, e.target.checked)}
-                                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
-                                    />
-                                    <input
-                                        type="text"
-                                        value={location}
-                                        onChange={(e) => handleLocationOptionChange(index, e.target.value)}
-                                        className="p-1 text-sm font-medium text-gray-900 border border-gray-300 rounded ms-2 focus:ring-blue-500 focus:border-blue-500"
-                                    />
-                                </div>
-                            ))}
-                            <div className="flex items-center mb-4">
-                                <input
-                                    id="location-other"
-                                    type="checkbox"
-                                    checked={selectedLocations.includes('Other')}
-                                    onChange={handleOtherLocationOptionChange}
+                                    checked={selectedOnCampusLocations.includes(location)}
+                                    onChange={(e) => handleSelectedOnCampusLocationChange(location, e.target.checked)}
                                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
                                 />
-                                <label htmlFor="location-other" className="text-sm font-medium text-gray-900 ms-2">
-                                    Other
-                                </label>
-                            </div>
-                            {showOtherLocationNotes && (
-                                <textarea
-                                    value={otherLocationNotes}
-                                    onChange={handleOtherLocationNotesChange}
-                                    placeholder="Additional location notes..."
-                                    className="block p-2.5 w-1/2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-
+                                <input
+                                    type="text"
+                                    value={location}
+                                    onChange={(e) => handleOnCampusLocationOptionChange(index, e.target.value)}
+                                    className="p-1 text-sm font-medium text-gray-900 border border-gray-300 rounded ms-2 focus:ring-blue-500 focus:border-blue-500"
                                 />
-                            )}
-                        </fieldset>
+                            </div>
+                        ))}
+                    </fieldset>
 
+                    <fieldset>
+                        
+                        <legend className="block text-lg font-medium text-gray-900 mb-2.5 relative">
+                            Off Campus Pickup locations
+                            <input
+                                required
+                                id="pickup-locations"
+                                type="checkbox"
+                                value=""
+                                checked={selectedOffCampusLocations.length > 0}
+                                onChange={(e) => {
+                                    if (!e.target.checked) {
+                                        setSelectedOffCampusLocations([]);
+                                    }
+                                }}
+                                className="absolute top-0 left-0 opacity-0" // Hide the checkbox behind the legend
+                            />
+                        </legend>
+                        {offCampusOptions.map((location, index) => (
+                            <div key={index} className="flex items-center mb-4">
+                                <input
+                                    type="checkbox"
+                                    checked={selectedOffCampusLocations.includes(location)}
+                                    onChange={(e) => handleSelectedOffCampusLocationChange(location, e.target.checked)}
+                                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+                                />
+                                <input
+                                    type="text"
+                                    value={location}
+                                    onChange={(e) => handleOffCampusLocationOptionChange(index, e.target.value)}
+                                    className="p-1 text-sm font-medium text-gray-900 border border-gray-300 rounded ms-2 focus:ring-blue-500 focus:border-blue-500"
+                                />
+                            </div>
+                        ))}
+                    </fieldset>
 
 
                         <fieldset>
