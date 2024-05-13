@@ -16,6 +16,8 @@ export default function Register(props) {
     const [grade, setGrade] = useState('');
     const [age, setAge] = useState('');
     const [biography, setBiography] = useState('');
+    const [location, setLocation] = useState('');
+
 
     const navigate = useNavigate();
 
@@ -31,7 +33,8 @@ export default function Register(props) {
             studentNumber,
             grade,
             age,
-            biography
+            biography,
+            location
         };
 
         try {
@@ -162,6 +165,25 @@ export default function Register(props) {
                                 onChange={(e) => setStudentNumber(e.target.value)}
                                 className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             />
+                        </div>
+
+                        <div className="mb-4">
+                            <label className='block text-lg font-medium text-gray-900 mb-2.5'>
+                                Location
+                            </label>
+                            <select 
+                                required 
+                                className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                value={location} 
+                                onChange={(e) => setLocation(e.target.value)}
+                                placeholder="First "
+
+                            >
+                                <option value="" disabled></option>
+                                <option value="On Campus">On Campus</option>
+                                <option value="Off Campus">Off Campus</option>
+                                <option value="Commuter">Commuter</option>
+                            </select>
                         </div>
 
                         <div className="mb-4">

@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const cookieParser = require("cookie-parser");
 const cors = require('cors');
 
-const listingRoutes = require('./routes/listings.js')
+const listingRoutes = require('./routes/listingsRoutes.js')
 const authRoutes = require("./routes/authRoutes.js")
 const messageRoutes = require('./routes/messageRoutes.js')
 

@@ -111,6 +111,9 @@ export default function MyStore(props) {
                                         />
                                         <div class="text-neutral-500 text-base font-medium flex flex-col gap-2">
                                             <h1 className='text-3xl font-bold text-black'>{profileData.username}</h1>
+                                            <h2>{profileData.sold} Sold</h2>
+                                            <h2>{profileData.location}</h2>
+
                                         </div>
 
                                     </div>

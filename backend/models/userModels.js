@@ -40,6 +40,15 @@ const userSchema = new mongoose.Schema({
         required: false,
         default: '',
     },
+    sold: {
+        type: Number,
+        required: true,
+        default: 0,
+    },
+    location: {
+        type: String,
+        required: [true, "Your location is required"],
+    },
     password: {
         type: String,
         required: [true, "Your password is required"],

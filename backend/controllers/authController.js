@@ -8,7 +8,7 @@ const bcrypt = require("bcryptjs");
 // POST signup a new user
 const Signup = async (req, res, next) => {
     try {
-        const { email, password, username, firstName, lastName, studentNumber, grade, age, biography } = req.body;
+        const { email, password, username, firstName, lastName, studentNumber, grade, age, biography, location } = req.body;
 
         const existingEmail = await User.findOne({ email });
         const existingUsername = await User.findOne({ username });
@@ -17,7 +17,7 @@ const Signup = async (req, res, next) => {
             return res.json({ message: "User already exists", success: false });
         }
 
-        const user = await User.create({ email, password, username, firstName, lastName, studentNumber, grade, age, biography });
+        const user = await User.create({ email, password, username, firstName, lastName, studentNumber, grade, age, biography, location });
 
         const token = createSecretToken(user._id);
         res.cookie("user", token, {
@@ -77,7 +77,7 @@ const getProfile = async (req, res) => {
             return res.status(401).json({ error: 'User is not authenticated' });
         }
 
-        const userProfile = await User.findById(loggedInUserId).select('username email firstName lastName studentNumber grade age biography');
+        const userProfile = await User.findById(loggedInUserId).select('username email firstName lastName studentNumber grade age biography location sold');
 
         if (!userProfile) {
             return res.status(404).json({ error: 'User not found' });
@@ -97,8 +97,10 @@ const getProfile = async (req, res) => {
             firstName: userProfile.firstName,
             lastName: userProfile.lastName,
             studentNumber: userProfile.studentNumber,
+            location: userProfile.location,
             grade: userProfile.grade,
             age: userProfile.age,
+            sold: userProfile.sold,
             biography: userProfile.biography,
             id: loggedInUserId,
             listings: listingsWithImageUrl,

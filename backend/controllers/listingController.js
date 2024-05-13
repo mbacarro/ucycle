@@ -204,12 +204,32 @@ const getListingSeller = async (req, res) => {
             return res.status(404).json({ error: 'Invalid ID' });
         }
 
-        const seller = await User.findById(id).select('username email');
+        const seller = await User.findById(id).select('username email firstName lastName studentNumber grade age biography location');
         if (!seller) {
             return res.status(404).json({ error: 'Seller not found' });
         }
 
-        res.status(200).json(seller);
+        const sellerListings = await Listing.find({ sellerID: id });
+        const listingsWithImageUrl = await Promise.all(sellerListings.map(async (listing) => {
+            listing = listing.toObject(); // Convert to plain JavaScript object to avoid Mongoose schema limitations
+            listing.imageUrl = await getObjectSignedUrl(listing.listingPhoto);
+            return listing;
+        }));
+
+        res.status(200).json({
+            success: true,
+            username: seller.username,
+            email: seller.email,
+            firstName: seller.firstName,
+            lastName: seller.lastName,
+            studentNumber: seller.studentNumber,
+            location: seller.location,
+            grade: seller.grade,
+            age: seller.age,
+            biography: seller.biography,
+            id,
+            listings: listingsWithImageUrl,
+        });
     } catch (error) {
         console.error(error); // Log the error for debugging
         res.status(400).json({ error: "Error with query" });

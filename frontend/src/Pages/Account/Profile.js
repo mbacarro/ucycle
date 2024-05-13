@@ -92,7 +92,7 @@ export default function Profile(props) {
                                             <p>First Name:</p>
                                             <p>Last Name:</p>
                                             <p>Student Number:</p>
-
+                                            <p>Location:</p>
                                         </div>
                                         <div className='flex flex-col gap-5 text-base font-normal text-neutral-700'>
                                             <p> {profileData.username}</p>
@@ -100,6 +100,7 @@ export default function Profile(props) {
                                             <p> {profileData.firstName}</p>
                                             <p> {profileData.lastName}</p>
                                             <p> {profileData.studentNumber}</p>
+                                            <p> {profileData.location}</p>
                                         </div>
                                     </div>
 
