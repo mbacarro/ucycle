@@ -95,7 +95,7 @@ export default function Seller() {
                 </div>
             </div>
             <p className='w-full mb-10'>{seller.biography}</p>
-            <SendMessageModal />
+            <SendMessageModal receiverId={sellerId}/>
 
             <hr className='my-8 border mx-2.5'/>
 
@@ -116,7 +116,7 @@ export default function Seller() {
                         </select>
                     </div>
 
-                    <div className='grid grid-cols-4'>
+                    <div className='grid grid-cols-4 gap-8'>
                         {listings.map((listing) => (
                             <ItemCard 
                                 key={listing._id}
