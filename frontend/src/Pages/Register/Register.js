@@ -250,7 +250,10 @@ export default function Register(props) {
                     </form>
                 </div>
 
-                <div className='flex flex-col justify-center col-span-2 align-middle'>
+                <div className='flex flex-col justify-start col-span-2 align-top'>
+                    <div className=" chat chat-start mt-28">
+                        <div className="font-medium text-white chat-bubble bg-violet-700">Make sure to use your UW email!</div>
+                    </div>
                     <img src={SignupDecor} alt="Make sure to use your UW email!" className='object-scale-down w-full' />
                 </div>
             </div>
