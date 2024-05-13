@@ -57,7 +57,7 @@ export default function ItemDetails() {
     }, [listing])
 
     useEffect(() => {
-        if (user?.username == seller?.username) {
+        if ((user?.username == seller?.username) || !user.status) {
             setViewingOwnListing(true)
         } else {
             setViewingOwnListing(false)

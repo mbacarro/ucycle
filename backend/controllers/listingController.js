@@ -13,7 +13,7 @@ const generateFileName = () => uuidv4();
 // GET all available listing
 const getAvailable = async (req, res) => {
     try {
-        const availableListings = await Listing.find({ sold: false });
+        const availableListings = await Listing.find({ sold: false }).sort({ createdAt: -1 });
         const listingsWithImageUrl = await Promise.all(availableListings.map(async (listing) => {
             listing = listing.toObject(); // Convert to plain JavaScript object to avoid Mongoose schema limitations
             listing.imageUrl = await getObjectSignedUrl(listing.listingPhoto);
@@ -29,7 +29,7 @@ const getAvailable = async (req, res) => {
 // GET all sold listing
 const getSold = async (req, res) => {
     try {
-        const soldListings = await Listing.find({sold: true})
+        const soldListings = await Listing.find({sold: true}).sort({ createdAt: -1 });
         const listingsWithImageUrl = await Promise.all(soldListings.map(async (listing) => {
             listing = listing.toObject(); // Convert to plain JavaScript object to avoid Mongoose schema limitations
             listing.imageUrl = await getObjectSignedUrl(listing.listingPhoto);
@@ -45,7 +45,7 @@ const getSold = async (req, res) => {
 const getCategory = async (req, res) => {
     try {
         const {category} = req.params
-        const availableListings = await Listing.find({category: category})
+        const availableListings = await Listing.find({category: category}).sort({ createdAt: -1 });
         const listingsWithImageUrl = await Promise.all(availableListings.map(async (listing) => {
             listing = listing.toObject(); // Convert to plain JavaScript object to avoid Mongoose schema limitations
             listing.imageUrl = await getObjectSignedUrl(listing.listingPhoto);

@@ -155,7 +155,9 @@ export default function CreateListing(props){
     return (
         <>
             <NavBar/>
-            <Breadcrumbs />
+            <div className="mx-56 mb-10" >
+                <Breadcrumbs />
+            </div>
             <h1 className='mt-3 text-2xl font-bold mx-96'>Create a Listing</h1>
             <form className="mt-10 mb-20 mx-96" onSubmit={handleSubmit}>
                 <label className='block text-lg font-medium text-gray-900 mb-2.5'>

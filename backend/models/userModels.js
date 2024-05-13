@@ -53,11 +53,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "Your password is required"],
     },
-    liked: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Listing',
-        default: [],
-    }
+    // liked: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Listing',
+    //     default: [],
+    // }
 }, {timestamps: true});
 
 userSchema.pre("save", async function () {

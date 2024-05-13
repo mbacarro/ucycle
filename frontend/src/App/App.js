@@ -21,12 +21,12 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
-      <Route path="/shopping-bag" element={<ShoppingBag />} />
+      {/* <Route path="/shopping-bag" element={<ShoppingBag />} /> */}
       <Route path="/inbox" element={<Inbox />} />
 
       <Route path="/account" element={<Profile />} />
       <Route path="/account/my-store" element={<MyStore />} />
-      <Route path="/account/liked" element={<Liked />} />
+      {/* <Route path="/account/liked" element={<Liked />} /> */}
 
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />

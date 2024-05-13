@@ -78,7 +78,7 @@ export default  function Home(props) {
 
                 {/* Popular Items */}
                 <div id='Categories' className='flex flex-col gap-6 justify-evenly'>
-                    <h1 className='text-2xl font-bold text-black'>Popular Items</h1>
+                    <h1 className='text-2xl font-bold text-black'>Recently Posted Items</h1>
                     <div className='grid grid-cols-4 gap-20'>
                         {listings && listings.map(listing => (
                             <ItemCard id={listing._id} listing={listing} />

@@ -93,7 +93,7 @@ export default function MyStore(props) {
                     <div className='flex flex-col w-1/4'>
                         <h1 className='text-3xl font-bold'>My Store</h1>
                         <Link to='/account' className='my-4 text-lg font-medium text-neutral-600 hover:bg-gray-100 hover:text-gray-900'>Profile</Link>
-                        <Link to='/account/liked' className='my-4 text-lg font-medium text-neutral-600 hover:bg-gray-100 hover:text-gray-900'>Liked</Link>
+                        {/* <Link to='/account/liked' className='my-4 text-lg font-medium text-neutral-600 hover:bg-gray-100 hover:text-gray-900'>Liked</Link> */}
                         <button onClick={handleLogout}className='my-4 text-lg font-medium text-left text-neutral-600 hover:bg-gray-100 hover:text-gray-900'>Log Out</button>
 
                     </div>

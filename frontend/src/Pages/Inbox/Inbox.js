@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import NavBar from '../../Components/Navbar/Navbar';
 import ConversationList from '../../Components/Inbox/ConversationList';
@@ -42,12 +43,11 @@ export default function Inbox(props) {
                                     />
                                 </div>
                                 <h2 className='text-lg font-semibold'>{selectedConversation.otherParticipantUsername}</h2>
-                                <button className="w-40 h-10 px-5 py-2 text-base font-medium text-center text-white rounded bg-violet-700 hover:bg-violet-800">
-                                    Visit Profile {/* Wrap in Link later*/}
-                                </button>
-                                <button className="w-40 h-10 text-base font-medium text-center text-black border border-black rounded">
-                                    Report {/* Wrap in Link later*/}
-                                </button>
+                                <Link to={`/seller/${selectedConversation.otherParticipantID}`}>
+                                    <button className="w-40 h-10 px-5 py-2 text-base font-medium text-center text-white rounded bg-violet-700 hover:bg-violet-800">
+                                        Visit Profile {/* Wrap in Link later*/}
+                                    </button>
+                                </Link>
                             </div>
                             <MessageList />
                             <MessageInput />

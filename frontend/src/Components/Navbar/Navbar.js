@@ -93,13 +93,13 @@ export default function NavBar(props) {
                                                 <img src={ProfileIcon} alt='Icon 1' className='w-full h-full' />
                                             </button>
                                             {isProfileOpen && (
-                                                <div id='profile dropdown' className="absolute z-20 mt-4 transform -translate-x-1/2 bg-white rounded-md shadow-md w-fit left-1/2" onMouseLeave={handleMouseLeave}>
+                                                <div id='profile dropdown' className="absolute z-20 mt-4 text-left transform -translate-x-1/2 bg-white rounded-md shadow-md w-fit left-1/2" onMouseLeave={handleMouseLeave}>
                                                             <div className="flex flex-col px-10" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                                                 <h1 className='inline-block mb-5 text-xl font-bold whitespace-nowrap text-violet-700'>Account</h1>
                                                                 <Link to='/account' className='inline-block mb-2 font-medium text-gray-700 cursor-pointer whitespace-nowrap hover:bg-gray-100 hover:text-gray-900'>Profile</Link>
                                                                 <Link to='/account/my-store' className='inline-block mb-2 font-medium text-gray-700 cursor-pointer whitespace-nowrap hover:bg-gray-100 hover:text-gray-900'>My Store</Link>
-                                                                <Link to='/account/liked' className='inline-block mb-2 font-medium text-gray-700 cursor-pointer whitespace-nowrap hover:bg-gray-100 hover:text-gray-900'>Liked</Link>
-                                                                <button onClick={handleLogout} className='inline-block mb-2 font-medium text-gray-700 cursor-pointer whitespace-nowrap hover:bg-gray-100 hover:text-gray-900'>Log Out</button>
+                                                                {/* <Link to='/account/liked' className='inline-block mb-2 font-medium text-gray-700 cursor-pointer whitespace-nowrap hover:bg-gray-100 hover:text-gray-900'>Liked</Link> */}
+                                                                <button onClick={handleLogout} className='inline-block mb-2 font-medium text-left text-gray-700 cursor-pointer whitespace-nowrap hover:bg-gray-100 hover:text-gray-900'>Log Out</button>
                                                                 
                                                             </div>
                                                     </div>
@@ -112,9 +112,9 @@ export default function NavBar(props) {
                                         <Link to='/inbox' className='w-6 h-6'>
                                             <img src={InboxIcon} alt='Icon 3' className='w-full h-full' />
                                         </Link>
-                                        <Link to='/shopping-bag' className='w-6 h-6'>
+                                        {/* <Link to='/shopping-bag' className='w-6 h-6'>
                                             <img src={BagIcon} alt='Icon 4' className='w-full h-full' />
-                                        </Link>
+                                        </Link> */}
                                     </div>
                                 </>
                             ) : (
