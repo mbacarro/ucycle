@@ -228,77 +228,83 @@ export default function CreateListing(props){
                     name='listingPhoto' 
                     onChange={handleFileChange}/>
 
-                <fieldset>
-                    
-                    <legend className="block text-lg font-medium text-gray-900 mb-2.5 relative">
-                        On Campus Pickup locations
-                        <input
-                            required
-                            id="pickup-locations"
-                            type="checkbox"
-                            value=""
-                            checked={selectedOnCampusLocations.length > 0}
-                            onChange={(e) => {
-                                if (!e.target.checked) {
-                                    setSelectedOnCampusLocations([]);
-                                }
-                            }}
-                            className="absolute top-0 left-0 opacity-0" // Hide the checkbox behind the legend
-                        />
-                    </legend>
-                    {onCampusOptions.map((location, index) => (
-                        <div key={index} className="flex items-center mb-4">
+                
+                <div className='grid grid-cols-2'>
+                    <fieldset>
+                        
+                        <legend className="block text-lg font-medium text-gray-900 mb-2.5 relative">
+                            On Campus Pickup locations
                             <input
+                                required
+                                id="pickup-locations"
                                 type="checkbox"
-                                checked={selectedOnCampusLocations.includes(location)}
-                                onChange={(e) => handleSelectedOnCampusLocationChange(location, e.target.checked)}
-                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+                                value=""
+                                checked={selectedOnCampusLocations.length > 0}
+                                onChange={(e) => {
+                                    if (!e.target.checked) {
+                                        setSelectedOnCampusLocations([]);
+                                    }
+                                }}
+                                className="absolute top-0 left-0 opacity-0" // Hide the checkbox behind the legend
                             />
-                            <input
-                                type="text"
-                                value={location}
-                                onChange={(e) => handleOnCampusLocationOptionChange(index, e.target.value)}
-                                className="p-1 text-sm font-medium text-gray-900 border border-gray-300 rounded ms-2 focus:ring-blue-500 focus:border-blue-500"
-                            />
-                        </div>
-                    ))}
-                </fieldset>
+                        </legend>
+                        {onCampusOptions.map((location, index) => (
+                            <div key={index} className="flex items-center mb-4">
+                                <input
+                                    type="checkbox"
+                                    checked={selectedOnCampusLocations.includes(location)}
+                                    onChange={(e) => handleSelectedOnCampusLocationChange(location, e.target.checked)}
+                                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+                                />
+                                <input
+                                    type="text"
+                                    value={location}
+                                    onChange={(e) => handleOnCampusLocationOptionChange(index, e.target.value)}
+                                    className="p-1 text-sm font-medium text-gray-900 border border-gray-300 rounded ms-2 focus:ring-blue-500 focus:border-blue-500"
+                                />
+                            </div>
+                        ))}
+                    </fieldset>
 
-                <fieldset>
-                    
-                    <legend className="block text-lg font-medium text-gray-900 mb-2.5 relative">
-                        Off Campus Pickup locations
-                        <input
-                            required
-                            id="pickup-locations"
-                            type="checkbox"
-                            value=""
-                            checked={selectedOffCampusLocations.length > 0}
-                            onChange={(e) => {
-                                if (!e.target.checked) {
-                                    setSelectedOffCampusLocations([]);
-                                }
-                            }}
-                            className="absolute top-0 left-0 opacity-0" // Hide the checkbox behind the legend
-                        />
-                    </legend>
-                    {offCampusOptions.map((location, index) => (
-                        <div key={index} className="flex items-center mb-4">
+                    <fieldset>
+                        
+                        <legend className="block text-lg font-medium text-gray-900 mb-2.5 relative">
+                            Off Campus Pickup locations
                             <input
+                                required
+                                id="pickup-locations"
                                 type="checkbox"
-                                checked={selectedOffCampusLocations.includes(location)}
-                                onChange={(e) => handleSelectedOffCampusLocationChange(location, e.target.checked)}
-                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+                                value=""
+                                checked={selectedOffCampusLocations.length > 0}
+                                onChange={(e) => {
+                                    if (!e.target.checked) {
+                                        setSelectedOffCampusLocations([]);
+                                    }
+                                }}
+                                className="absolute top-0 left-0 opacity-0" // Hide the checkbox behind the legend
                             />
-                            <input
-                                type="text"
-                                value={location}
-                                onChange={(e) => handleOffCampusLocationOptionChange(index, e.target.value)}
-                                className="p-1 text-sm font-medium text-gray-900 border border-gray-300 rounded ms-2 focus:ring-blue-500 focus:border-blue-500"
-                            />
-                        </div>
-                    ))}
-                </fieldset>
+                        </legend>
+                        {offCampusOptions.map((location, index) => (
+                            <div key={index} className="flex items-center mb-4">
+                                <input
+                                    type="checkbox"
+                                    checked={selectedOffCampusLocations.includes(location)}
+                                    onChange={(e) => handleSelectedOffCampusLocationChange(location, e.target.checked)}
+                                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+                                />
+                                <input
+                                    type="text"
+                                    value={location}
+                                    onChange={(e) => handleOffCampusLocationOptionChange(index, e.target.value)}
+                                    className="p-1 text-sm font-medium text-gray-900 border border-gray-300 rounded ms-2 focus:ring-blue-500 focus:border-blue-500"
+                                />
+                            </div>
+                        ))}
+                    </fieldset>
+
+                </div>
+
+
 
 
 
