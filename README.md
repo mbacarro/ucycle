@@ -25,3 +25,5 @@ How might UW students safely buy and sell used items in order to reduce waste, m
 - JWT/jsonwebtoken (for user authentication and signin)
 - Multer (for file handling and upload)
 - bcryptjs (for password encryption)
+
+**Go into specific directories and their READMEs for more information**
