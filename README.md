@@ -21,7 +21,7 @@ How might UW students safely buy and sell used items in order to reduce waste, m
 ### Backend: 
 - Express (Building RESTful APIs)
 - Mongoose (Mongodb handling)
-- AWS S3 /client-s3 and /s3-request-presigner (for image storage)
-- JWT/jsonwebtoken (for user authentication and signn)
+- AWS S3 /client-s3 and /s3-request-presigner (for image storage and retrieval)
+- JWT/jsonwebtoken (for user authentication and signin)
 - Multer (for file handling and upload)
 - bcryptjs (for password encryption)
