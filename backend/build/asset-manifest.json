@@ -1,0 +1,42 @@
+{
+  "files": {
+    "main.css": "/static/css/main.d90cbc52.css",
+    "main.js": "/static/js/main.c09dcb79.js",
+    "static/js/592.52f3dd23.chunk.js": "/static/js/592.52f3dd23.chunk.js",
+    "static/media/Womenswear.jpg": "/static/media/Womenswear.c5d9a26701868dc62059.jpg",
+    "static/media/Menswear.jpg": "/static/media/Menswear.89aa12b5fd33efba2ad0.jpg",
+    "static/media/Electronics.png": "/static/media/Electronics.d4032eaf8cb3e59e8393.png",
+    "static/media/Misc.png": "/static/media/Misc.c67614da2d6a6fd918ae.png",
+    "static/media/Homegoods.png": "/static/media/Homegoods.a6d75fbcf347a204fc07.png",
+    "static/media/Accessories.png": "/static/media/Accessories.49789c01f97ed3e0377d.png",
+    "static/media/Apartment.png": "/static/media/Apartment.bc5d43175a4567120b84.png",
+    "static/media/Electronics.jpg": "/static/media/Electronics.f1f24cd6f2cba3b17aa2.jpg",
+    "static/media/LivingRoom.png": "/static/media/LivingRoom.44ee02f81239cd64154a.png",
+    "static/media/Dorm.png": "/static/media/Dorm.2dcef6c2476f138d587c.png",
+    "static/media/Bedroom.png": "/static/media/Bedroom.286706f3eee40b6ef6a8.png",
+    "static/media/Kitchen.png": "/static/media/Kitchen.eeef30bb950919bd7404.png",
+    "static/media/DeskArea.png": "/static/media/DeskArea.53c66c7601636a62b749.png",
+    "static/media/LoginPhoto.png": "/static/media/LoginPhoto.2338df759ee0ed1ac7ff.png",
+    "static/media/HomePage.png": "/static/media/HomePage.515e0ec158d4d9c621e0.png",
+    "static/media/SignupDecor.png": "/static/media/SignupDecor.b24989274b0a0171165c.png",
+    "static/media/Savings.svg": "/static/media/Savings.15d2e75b20c95fd4b9fbdf975577e9d1.svg",
+    "static/media/BuildingIcon.svg": "/static/media/BuildingIcon.ed59944e1b3c5d0c6c0ff4642dc3c00d.svg",
+    "static/media/ProfileIcon.svg": "/static/media/ProfileIcon.d477e253a8542a2c085c4ce1db14c8a0.svg",
+    "static/media/Safety.svg": "/static/media/Safety.e9d0a4ed26b937cb9d1ec4c6809824d6.svg",
+    "static/media/Sustainability.svg": "/static/media/Sustainability.2655493923f9ef8441840f6b09244a0a.svg",
+    "static/media/BoxIcon.svg": "/static/media/BoxIcon.4c79a1f1744810235028ec12c39f83d3.svg",
+    "static/media/Arrow.svg": "/static/media/Arrow.2ac656cb51ead0d3c28970541d346a2d.svg",
+    "static/media/BagIcon.svg": "/static/media/BagIcon.6cad49fe8821bf6a5e0d0cb4c39ef1ef.svg",
+    "static/media/SchoolIcon.svg": "/static/media/SchoolIcon.97c89a171eeec44e492975e670f16cd0.svg",
+    "static/media/InboxIcon.svg": "/static/media/InboxIcon.6e299b01a8233b50e6110d3fad446d71.svg",
+    "index.html": "/index.html",
+    "static/media/NotificationsIcon.svg": "/static/media/NotificationsIcon.31f3ca396e4189547945b3993413d8c8.svg",
+    "main.d90cbc52.css.map": "/static/css/main.d90cbc52.css.map",
+    "main.c09dcb79.js.map": "/static/js/main.c09dcb79.js.map",
+    "592.52f3dd23.chunk.js.map": "/static/js/592.52f3dd23.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d90cbc52.css",
+    "static/js/main.c09dcb79.js"
+  ]
+}
