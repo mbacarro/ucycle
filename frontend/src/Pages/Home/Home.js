@@ -64,7 +64,7 @@ export default  function Home(props) {
                                 </button>
                             </Link>
                             <Link to='/register'>
-                                <button className="h-12 text-xl font-bold text-center border border-2 rounded-full w-44 text-violet-700 border-violet-700">
+                                <button className="h-12 text-xl font-bold text-center border-2 rounded-full w-44 text-violet-700 border-violet-700">
                                     Sign Up
                                 </button>
                             </Link>
