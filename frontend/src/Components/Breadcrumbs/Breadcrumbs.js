@@ -14,7 +14,7 @@ export default function Breadcrumbs() {
 
             return (
                 <>
-                    <Link to={currLink}>{crumb.charAt(0).toUpperCase() + crumb.slice(1)}</Link>
+                    <Link to={currLink}>{decodeURIComponent(crumb).charAt(0).toUpperCase() + decodeURIComponent(crumb).slice(1)}</Link>
                     {index < array.length - 1 && <span className='mx-1'>/</span>}
                 </>
             )

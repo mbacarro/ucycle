@@ -42,7 +42,7 @@ const filters = {
     womenswear: ['Dresses', 'Tops', 'Bottoms', 'Outerwear', 'Activewear', 'Shoes'],
     menswear: ['Tops', 'Bottoms', 'Outerwear', 'Activewear', 'Shoes'],
     "home goods": ['Kitchen', 'Living Roon', 'Office', 'Bedroom', 'Outdoors', 'Bathroom'],
-    electronics: ['PC/Laptop', 'Tablets', 'Monitors', 'Keyboards', 'Mice', 'Headphones', 'Earphones', 'Calculators', 'Cameras', 'Printers'],
+    electronics: ['PC and Laptops', 'Tablets', 'Monitors', 'Keyboards', 'Mice', 'Headphones', 'Earphones', 'Calculators', 'Cameras', 'Printers'],
     accessories: ['Hats', 'Jewelry', 'Bags', 'Eyewear', 'Wallets'],
     misc: ['Office Supplies',' Books', 'Exercise Equipment', 'Board Games', 'Puzzles', 'Art Supplies'],
 };
