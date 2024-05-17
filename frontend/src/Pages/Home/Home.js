@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import NavBar from '../../Components/Navbar/Navbar';
@@ -16,6 +16,8 @@ export default  function Home(props) {
 
     const [listings, setListings] = useState(null)
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         const fetchListings = async () => {
             const response = await fetch('/api/listings')
@@ -29,6 +31,13 @@ export default  function Home(props) {
         fetchListings()
     }, [])
 
+    const goToDormEssentials = () => {
+        navigate('/dorm-necessities')
+    }
+    const goToAprtEssentials = () => {
+        navigate('/apartment-necessities')
+    }
+
     return (
         <>
             <NavBar />
@@ -37,11 +46,13 @@ export default  function Home(props) {
                 <div id="Necessities" className='flex justify-center gap-8 '>
                     <div id='Apartment Necessities' className='p-4 flex flex-col w-full aspect-[13/10] bg-apartment bg-cover tint '>
                         <h1 className='z-10 w-1/4 text-2xl font-bold text-white'>Apartment Necessities</h1>
-                        <button className='z-10 self-center w-1/4 px-2 py-2 mt-auto mb-4 text-base text-center bg-white border border-black rounded-md'>Shop Now</button>
+                        <button onClick={goToAprtEssentials}
+                        className='z-10 self-center w-1/4 px-2 py-2 mt-auto mb-4 text-base text-center bg-white border border-black rounded-md'>Shop Now</button>
                     </div>
                     <div id='Dorm Necessities' className='p-4 flex flex-col w-full aspect-[13/10] bg-dorm bg-cover tint'>
                         <h1 className='z-10 w-1/4 text-2xl font-bold text-white'>Dorm Necessities</h1>
-                        <button className='z-10 self-center w-1/4 px-2 py-2 mt-auto mb-4 text-base text-center bg-white border border-black rounded-md'>Shop Now</button>
+                        <button onClick={goToDormEssentials}
+                        className='z-10 self-center w-1/4 px-2 py-2 mt-auto mb-4 text-base text-center bg-white border border-black rounded-md'>Shop Now</button>
                     </div>
                 </div>
 

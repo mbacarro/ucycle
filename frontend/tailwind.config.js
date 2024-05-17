@@ -14,6 +14,11 @@ module.exports = {
       backgroundImage: {
         'dorm': "url('../src/Images/Dorm.png')",
         'apartment': "url('../src/Images/Apartment.png')",
+        'bedroom': "url('../src/Images/Bedroom.png')",
+        'kitchen': "url('../src/Images/Kitchen.png')",
+        'livingroom': "url('../src/Images/LivingRoom.png')",
+        'deskarea': "url('../src/Images/DeskArea.png')",
+        'electronics': "url('../src/Images/Electronics.jpg')",
       },
     },
   },

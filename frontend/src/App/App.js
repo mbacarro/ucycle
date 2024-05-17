@@ -15,6 +15,9 @@ import Liked from '../Pages/Account/Liked.js';
 import Register from '../Pages/Register/Register.js';
 import Login from '../Pages/Login/Login.js';
 import Seller from '../Pages/Seller/Seller.js';
+import DormNecessities from '../Pages/Necessities/DormNecessities.js';
+import ApartmentNecessities from '../Pages/Necessities/ApartmentNecessities.js';
+
 
 function App() {
   return (
@@ -27,6 +30,9 @@ function App() {
       <Route path="/account" element={<Profile />} />
       <Route path="/account/my-store" element={<MyStore />} />
       {/* <Route path="/account/liked" element={<Liked />} /> */}
+
+      <Route path='/dorm-necessities' element={<DormNecessities />} />
+      <Route path='/apartment-necessities' element={<ApartmentNecessities />} />
 
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
