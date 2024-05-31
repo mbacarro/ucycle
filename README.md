@@ -10,7 +10,13 @@ How might UW students safely buy and sell used items in order to reduce waste, m
 - Open a terminal and go into the `/backend` directory and run `npm start` or `npm run dev` if you have nodemon installed
 - Open another terminal and go into the `/frontend` directory and run `npm start`
     - This will open up the React App on [http://localhost:3000](http://localhost:3000) which is listening to http://localhost:4000 for the backend services
-
+## Features
+- Item listing form for selling
+- Account creation
+- Filtering items
+- Item categories
+- Edit/Buy items
+- Chat for sellers/buyers to communicate 
 ## Technologies Used
 ### Frontend:
 - React (react-dom, react-icons, react-router-dom)
